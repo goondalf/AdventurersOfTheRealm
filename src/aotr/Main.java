@@ -14,6 +14,7 @@ import aotr.objects.floors.Floor;
 import aotr.objects.floors.FloorIndex;
 import aotr.objects.types.Player;
 import aotr.objects.types.world;
+import aotr.renderer.HUD;
 import aotr.renderer.MainMenu;
 import aotr.renderer.gameSpace;
 import aotr.resources.graphics.textureLoader;
@@ -25,7 +26,7 @@ import aotr.system.keyInput;
 public class Main extends Canvas implements Runnable{
 
 	public static int WIDTH =320;
-	public static int HEIGHT = WIDTH/ 12*9;
+	public static int HEIGHT = 320;
 	public static final int SCALE = 2;
 	public final static String TITLE = "Adventurers of the Realm";
 	
@@ -40,6 +41,7 @@ public class Main extends Canvas implements Runnable{
 	public FloorIndex fIndex;
 	private world gameWorld;
 	public Player player;
+	public HUD gameHud;
 	
 	//game variables
 	private int gamestate;
@@ -59,7 +61,8 @@ public class Main extends Canvas implements Runnable{
 	this.fIndex = new FloorIndex(sheet);
 	mm = new MainMenu(this);
 	gameWorld = new world(this);
-	tiles = new gameSpace();
+	tiles = new gameSpace(this);
+	gameHud = new HUD(this);
 	player = new Player(50,50,this,sheet);
 	
 	
@@ -157,6 +160,7 @@ public class Main extends Canvas implements Runnable{
 			mm.render(g, getWidth(), getHeight());
 		}else if(gamestate == 1) {
 		    tiles.render(g, getWidth(), getHeight(), this);
+		    gameHud.render(g, getWidth(), getHeight(), this);
 		}
 		
 		
@@ -207,6 +211,14 @@ public class Main extends Canvas implements Runnable{
 			
 		}
 		
+		if(key == KeyEvent.VK_K) {
+			tiles.zoomIn();
+				
+			}
+		if(key == KeyEvent.VK_L) {
+			tiles.zoomOut();	
+				
+			}
 	}
 	
 	public void exit() {
