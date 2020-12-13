@@ -1,4 +1,4 @@
-package aotr.objects.types;
+package aotr.objects.items;
 
 public class Item {
 

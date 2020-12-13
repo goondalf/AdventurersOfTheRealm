@@ -1,6 +1,7 @@
 package aotr;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -12,13 +13,13 @@ import javax.swing.JFrame;
 
 import aotr.objects.floors.Floor;
 import aotr.objects.floors.FloorIndex;
-import aotr.objects.types.Player;
-import aotr.objects.types.world;
+import aotr.objects.player.Player;
 import aotr.renderer.HUD;
 import aotr.renderer.MainMenu;
 import aotr.renderer.gameSpace;
 import aotr.resources.graphics.textureLoader;
 import aotr.system.keyInput;
+import aotr.world.world;
 
 
 
@@ -37,7 +38,7 @@ public class Main extends Canvas implements Runnable{
 	
 	//game objects
 	private MainMenu mm;
-	private gameSpace tiles;
+	public gameSpace tiles;
 	public FloorIndex fIndex;
 	private world gameWorld;
 	public Player player;
@@ -50,6 +51,8 @@ public class Main extends Canvas implements Runnable{
 	textureLoader texLoader = new textureLoader();
 	
 	public void init() {
+		
+		
 	try {
 		this.sheet = texLoader.loadImage("default/ascii.png");
 	} catch (IOException e) {
@@ -117,13 +120,14 @@ public class Main extends Canvas implements Runnable{
 				tick();
 				updates++;
 				delta--;
+				frames++;
+				render();
 			}
-			frames++;
-			render();
+			;
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				//System.out.println(updates + "ticks, fps " + frames);
+				System.out.println(updates + "ticks, fps " + frames);
 				updates = 0;
 				frames = 0;
 			}		
@@ -132,8 +136,7 @@ public class Main extends Canvas implements Runnable{
 	}
 
 	
-	
-	
+
 	
 	
 	
@@ -186,7 +189,7 @@ public class Main extends Canvas implements Runnable{
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+	
 		game.start();
 		
 	}
@@ -205,20 +208,65 @@ public class Main extends Canvas implements Runnable{
 		mm.menuScrollDown();
 		player.move(0, 1);
 		}
-		
+	
 		if(key == KeyEvent.VK_ENTER) {
 		mm.select();	
+		}
+		if(key == KeyEvent.VK_K) {
+		tiles.zoomIn();
+		}
+		if(key == KeyEvent.VK_L) {
+			tiles.zoomOut();	
+		}
+		
+		
+		if(key == KeyEvent.VK_M) {
+		player.look();
+			
 			
 		}
 		
-		if(key == KeyEvent.VK_K) {
-			tiles.zoomIn();
-				
-			}
-		if(key == KeyEvent.VK_L) {
-			tiles.zoomOut();	
-				
-			}
+		//*******************
+		// movement controls
+		//*******************
+	if(key == KeyEvent.VK_Q) {
+		player.move(-1, -1);	
+
+	}
+		if(key == KeyEvent.VK_W) {
+			player.move(0, -1);
+			
+		}
+		if(key == KeyEvent.VK_E) {
+			player.move(1, -1);
+			
+		}
+		if(key == KeyEvent.VK_A) {
+			player.move(-1, 0);
+			
+		}
+		if(key == KeyEvent.VK_S) {
+			
+		}
+		if(key == KeyEvent.VK_D) {
+			player.move(1, 0);
+
+		}
+		if(key == KeyEvent.VK_Z) {
+			player.move(-1, 1);
+			
+		}
+		if(key == KeyEvent.VK_X) {
+			player.move(0, 1);
+			
+		}
+		if(key == KeyEvent.VK_C) {
+			player.move(1, 1);
+			
+		}
+		
+		
+		
 	}
 	
 	public void exit() {

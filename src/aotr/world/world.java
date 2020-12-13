@@ -1,4 +1,4 @@
-package aotr.objects.types;
+package aotr.world;
 
 import java.util.Random;
 
@@ -16,7 +16,7 @@ this.worldArray = new Tile[100][100];
 this.game = game;	
 
 
-setTile = new Tile(game.getFloor(0),0,null);
+setTile = new Tile(game.getFloor(0),null,null,null);
 for(int x=0; x < 100; x++) {
 	for(int y=0; y < 100; y++) {
 			
@@ -33,7 +33,7 @@ public void generateWorld() {
 	
 	for(int x=0; x < 100; x++) {
 		for(int y=0; y < 100; y++) {
-			setTile = new Tile(game.getFloor(rand.nextInt(2)),0,null);	
+			setTile = new Tile(game.getFloor(rand.nextInt(2)),null,null,null);	
 			worldArray[x][y] = setTile;
 			
 		}

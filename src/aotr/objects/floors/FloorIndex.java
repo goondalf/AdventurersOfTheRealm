@@ -26,13 +26,11 @@ public FloorIndex(BufferedImage texture) {
 	for(int i = 0; i < 10; i++) {	
 	switch(i) {
 	case 0:
-		
 		tex = tile.grabImage(1, 12, 32, 32);
 		tex = tile.changeImageColor(tex, Color.GREEN);
 		grass = new Floor(tex, "grass");
 		fIndex[i] = grass;
 		break;
-		
 	case 1:
 		tex = tile.grabImage(3, 12, 32, 32);
 		tex = tile.changeImageColor(tex, Color.GRAY);

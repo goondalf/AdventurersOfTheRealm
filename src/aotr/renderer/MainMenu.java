@@ -44,6 +44,7 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 
 
 public void select() {
+	if(window.getGameState()==0) {
 	if(this.menuselector == 0) {
 		//System.out.println("new game");
 		window.generateWorld();
@@ -52,6 +53,7 @@ public void select() {
 		//System.out.println("load game");
 	}else if(this.menuselector == 2) {
 		window.exit();
+	}
 	}
 }
 

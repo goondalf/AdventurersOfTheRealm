@@ -9,8 +9,8 @@ import aotr.resources.graphics.textureProcessor;
 
 public class HUD {
 
-	int topLcorner;
-	int topRcorner;
+	int topLcornerx;
+	int topLcornery;
 	int bLcorner;
 	int bRcorner;
 	int hudwidth;
@@ -27,16 +27,15 @@ Main game;
 	
 	public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 		this.game = game;
-		topLcorner = windowHeight;
-		hudwidth = windowWidth / 10;
+		topLcornerx = game.tiles.getWidth() + windowHeight/120;
+		topLcornery = windowHeight/120;
+		hudwidth = windowWidth - topLcornerx - windowHeight/120;
+		hudheight = windowHeight - topLcornery*2;
+		
 		g.setColor(Color.white);
-	//	g.fillRect(topLcorner, 10, windowWidth - topLcorner, windowHeight);
-		
-		//g.fillRect(windowHeight, 5, 5, windowHeight - 10);
-		//g.fillRect(windowWidth - 10, 5, 5, windowHeight - 10);
-		//g.fillRect(windowHeight, 5, 50, 10);
-		//g.fillRect(windowHeight, 0, 5, windowHeight);
-		
+		g.fillRect(topLcornerx, topLcornery, hudwidth, hudheight);
+		g.setColor(Color.black);
+		g.fillRect(topLcornerx + topLcornery, topLcornery*2, hudwidth-topLcornery*2, hudheight-topLcornery*2);
 		
 		
 		
