@@ -10,7 +10,8 @@ import aotr.objects.structures.Structure;
 public class Tile {
 
 private Floor floor;
-	
+private Structure structure;
+private Entity entity;
 	public Tile (Floor floorTile, Structure structure , Entity entity, Item[] items) {
 		this.floor = floorTile;
 		
@@ -22,5 +23,22 @@ private Floor floor;
 		
 		return this.floor.getTex();
 		
+	}
+
+	public void setStructure(Structure structure) {
+		this.structure = structure;
+	}
+	
+	public void setEntity(Entity entity) {
+		this.entity = entity;
+	}
+
+
+	public Entity getEntity() {
+		return this.entity;		
+	}
+	
+	public Structure getStructure() {
+		return this.structure;
 	}
 }

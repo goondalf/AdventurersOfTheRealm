@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -143,6 +145,7 @@ public class Main extends Canvas implements Runnable{
 	
 	
 	private void tick() {
+		this.requestFocus();
 		
 		
 	}
@@ -180,17 +183,20 @@ public class Main extends Canvas implements Runnable{
 		game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		
+		game.addKeyListener(new keyInput(game));
 		JFrame frame = new JFrame(Main.TITLE);
-		frame.addKeyListener(new keyInput(game));
+		//frame.addKeyListener(new keyInput(game));
+		frame.setFocusable(true);
 		frame.add(game);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-	
+		frame.requestFocus();
 		game.start();
+		
+	
 		
 	}
 
@@ -266,7 +272,7 @@ public class Main extends Canvas implements Runnable{
 		}
 		
 		
-		
+
 	}
 	
 	public void exit() {

@@ -17,14 +17,14 @@ public class textureProcessor {
 		
 	}
 	
-	public BufferedImage changeImageColor(BufferedImage image,Color color) {
+	public BufferedImage changeImageColor(BufferedImage image, Color color,Color color2) {
 		
 		
 		 for (int i = 0; i < image.getWidth(); i++) {
 		        for (int j = 0; j < image.getHeight(); j++) {
 		        	
-		            if (image.getRGB(i, j) == Color.white.getRGB()) {
-		                image.setRGB(i, j, color.getRGB());
+		            if (image.getRGB(i, j) == color.getRGB()) {
+		                image.setRGB(i, j, color2.getRGB());
 		            }
 		            else {
 		          

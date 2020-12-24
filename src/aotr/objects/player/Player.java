@@ -24,7 +24,7 @@ public boolean lookbool;
 
 	pros = new textureProcessor(tex);
 	looktex = pros.grabImage(9, 6, 32, 32);
-	Look look = new Look (pros.changeImageColor(looktex, Color.RED),this, game);
+	Look look = new Look (pros.changeImageColor(looktex, Color.white,Color.RED),this, game);
 	this.look = look;
 	this.tex = pros.grabImage(1, 5, 32, 32);
 		

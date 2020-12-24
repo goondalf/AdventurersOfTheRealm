@@ -13,7 +13,8 @@ this.main = main;
 		
 }
 public void keyPressed(KeyEvent e) {
-main.keyPressed(e);	
+main.keyPressed(e);
+
 }
 
 public void keyReleased(KeyEvent e) {
