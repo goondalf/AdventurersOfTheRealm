@@ -33,7 +33,8 @@ public boolean lookbool;
 	
 	
 	public void move(int changeX, int changeY) {
-	if (game.getGameState() == 1 && this.lookbool == false) {
+
+		if (game.getGameState() == 1 && this.lookbool == false && this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() == null) {
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < 100)) {
 		this.x = changeX + this.x;
 		}

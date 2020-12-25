@@ -4,16 +4,19 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import aotr.Main;
 import aotr.objects.player.Look;
+import aotr.world.Tile;
 import aotr.world.world;
 
 
 
 public class gameSpace {
 private world world;
-private BufferedImage square;
+private BufferedImage floorTex;
 private Main game;
+private Tile tile;
 
 BufferedImage midTex;
+
 
 int frameWidth;
 int frameHeight;
@@ -23,6 +26,11 @@ int windowHeight;
 int windoWidth;
 int midX;
 int midY;
+int relX;
+int relY;
+int screenX;
+int screenY;
+int squareSide;
 
 public gameSpace(Main game){
 this.game = game;
@@ -47,30 +55,41 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 		midY = game.player.look.getY();
 		midTex = game.player.look.getTex(); 
 	}
-	
-		 
+	squareSide = windowHeight/frameHeight;
 		for(int x = 0; x < frameWidth; x++) {
 			
 			for(int y = 0; y < frameHeight; y++) {
+				relX = (midX + x - frameWidth/2);
+				relY = (midY + y - frameHeight/2);
+				screenX = x * (windowHeight / frameHeight);
+				screenY = y * (windowHeight / frameHeight);
 				
-				if(((midX + x - frameWidth/2) < 0) || ((midX + x - frameWidth/2) > 99) 
-						|| ((midY + y - frameHeight/2) < 0) || ((midY + y - frameHeight/2) > 99)) {
-				square = game.fIndex.getIndex(3).getTex();	
+				
+				if((relX < 0) || (relX > 99) || (relY < 0) || (relY > 99)) {
+				floorTex = game.fIndex.getIndex(3).getTex();	
 				}else {
+				floorTex = world.getTile(relX, relY).getFloorTex();
+				tile = world.getTile(relX, relY);
+				g.drawImage(floorTex, screenX, screenY, squareSide, squareSide, null);	
 				
-				square = world.getTile(midX + x - frameWidth/2, midY + y - frameHeight/2).getFloorTex();
 				
-				
+				if(tile.getStructure() != null) {
+					g.drawImage(tile.getStructure().getTex(),  screenX, screenY, squareSide, squareSide, null);
 				}
-				g.drawImage(square, x *(windowHeight / frameHeight), y *(windowHeight / frameHeight), windowHeight / frameHeight, windowHeight / frameHeight, null);	
 				
-				if(game.player.lookbool == true && (midX + x - frameWidth/2) == game.getPlayerX() && (midY + y - frameHeight/2) == game.getPlayerY()) {
-					g.drawImage(game.getPlayerTex(), x *(windowHeight / frameHeight), y *(windowHeight / frameHeight), windowHeight / frameHeight, windowHeight / frameHeight, null);	
+				
+				if(game.player.lookbool == true && relX == game.getPlayerX() && relY == game.getPlayerY()) {
+					g.drawImage(game.getPlayerTex(), screenX, screenY, squareSide, squareSide, null);	
 					}
-			}
 			
+					
+
+				}
+			
+			}
+			 
 		}
-		g.drawImage(midTex, frameWidth/2 *(windowHeight / frameHeight), frameHeight/2 *(windowHeight / frameHeight), windowHeight / frameHeight, windowHeight / frameHeight, null);
+		g.drawImage(midTex, frameWidth/2 *(squareSide), frameHeight/2 *(squareSide), squareSide, squareSide, null);
 		
 		
 

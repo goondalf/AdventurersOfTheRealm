@@ -1,11 +1,8 @@
 package aotr;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -16,6 +13,7 @@ import javax.swing.JFrame;
 import aotr.objects.floors.Floor;
 import aotr.objects.floors.FloorIndex;
 import aotr.objects.player.Player;
+import aotr.objects.structures.StructureIndex;
 import aotr.renderer.HUD;
 import aotr.renderer.MainMenu;
 import aotr.renderer.gameSpace;
@@ -42,10 +40,10 @@ public class Main extends Canvas implements Runnable{
 	private MainMenu mm;
 	public gameSpace tiles;
 	public FloorIndex fIndex;
+	public StructureIndex sIndex;
 	private world gameWorld;
 	public Player player;
 	public HUD gameHud;
-	
 	//game variables
 	private int gamestate;
 	
@@ -64,6 +62,7 @@ public class Main extends Canvas implements Runnable{
 	
 	
 	this.fIndex = new FloorIndex(sheet);
+	this.sIndex = new StructureIndex(sheet);
 	mm = new MainMenu(this);
 	gameWorld = new world(this);
 	tiles = new gameSpace(this);
