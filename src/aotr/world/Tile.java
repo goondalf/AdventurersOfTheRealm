@@ -41,4 +41,10 @@ private Entity entity;
 	public Structure getStructure() {
 		return this.structure;
 	}
+	
+	public void setFloor(Floor floor) {
+		this.floor = floor;
+	}
+	
 }
+

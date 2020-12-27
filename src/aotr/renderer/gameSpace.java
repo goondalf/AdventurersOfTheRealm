@@ -65,7 +65,7 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 				screenY = y * (windowHeight / frameHeight);
 				
 				
-				if((relX < 0) || (relX > 99) || (relY < 0) || (relY > 99)) {
+				if((relX < 0) || (relX > world.worldWidth -1) || (relY < 0) || (relY > world.worldHeight-1)) {
 				floorTex = game.fIndex.getIndex(3).getTex();	
 				}else {
 				floorTex = world.getTile(relX, relY).getFloorTex();

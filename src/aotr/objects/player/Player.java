@@ -34,13 +34,15 @@ public boolean lookbool;
 	
 	public void move(int changeX, int changeY) {
 
-		if (game.getGameState() == 1 && this.lookbool == false && this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() == null) {
-		if(((this.x + changeX) > -1) && ((this.x + changeX) < 100)) {
+		if (game.getGameState() == 1 && this.lookbool == false) {
+		
+		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
+		if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() == null){
+		this.y = changeY + this.y;
 		this.x = changeX + this.x;
 		}
-		if(((this.y + changeY) > -1) && ((this.y + changeY) < 100)) {
-		this.y = changeY + this.y;
 		}
+
 		
 	}else if(this.lookbool == true) {
 		this.look.move(changeX, changeY);
