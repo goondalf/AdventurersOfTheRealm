@@ -12,8 +12,8 @@ private Tile setTile;
 private Main game;
 private Random rand = new Random();
 private Structure setStructure;
-public final int worldWidth = 1000;
-public final int worldHeight = 1000;
+public final int worldWidth = 100;
+public final int worldHeight = 100;
 
 
 public world(Main game) {
@@ -47,7 +47,7 @@ public void generateWorld() {
 	this.worldArray[9][10].setStructure(game.sIndex.getIndex(2));
 	this.worldArray[11][10].setStructure(game.sIndex.getIndex(3));
 	this.worldArray[9][11].setStructure(game.sIndex.getIndex(1));
-	this.worldArray[11][11].setStructure(game.sIndex.getIndex(1));
+	this.worldArray[11][11].setStructure(game.sIndex.getIndex(6));
 	this.worldArray[9][12].setStructure(game.sIndex.getIndex(4));
 	this.worldArray[10][12].setStructure(game.sIndex.getIndex(0));
 	this.worldArray[11][12].setStructure(game.sIndex.getIndex(5));

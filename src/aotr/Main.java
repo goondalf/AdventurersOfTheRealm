@@ -14,9 +14,10 @@ import aotr.objects.floors.Floor;
 import aotr.objects.floors.FloorIndex;
 import aotr.objects.player.Player;
 import aotr.objects.structures.StructureIndex;
-import aotr.renderer.HUD;
 import aotr.renderer.MainMenu;
 import aotr.renderer.gameSpace;
+import aotr.renderer.InGame.HUD;
+import aotr.renderer.InGame.PauseMenu;
 import aotr.resources.graphics.textureLoader;
 import aotr.system.keyInput;
 import aotr.world.world;
@@ -44,8 +45,10 @@ public class Main extends Canvas implements Runnable{
 	private world gameWorld;
 	public Player player;
 	public HUD gameHud;
+	public PauseMenu pauseMenu;
 	//game variables
 	private int gamestate;
+	public int gameMenu;
 	
 	private BufferedImage sheet;
 	textureLoader texLoader = new textureLoader();
@@ -60,7 +63,7 @@ public class Main extends Canvas implements Runnable{
 		e.printStackTrace();
 	}
 	
-	
+	this.gameMenu = 0;
 	this.fIndex = new FloorIndex(sheet);
 	this.sIndex = new StructureIndex(sheet);
 	mm = new MainMenu(this);
@@ -68,7 +71,7 @@ public class Main extends Canvas implements Runnable{
 	tiles = new gameSpace(this);
 	gameHud = new HUD(this);
 	player = new Player(50,50,this,sheet);
-	
+	pauseMenu = new PauseMenu();
 	
 	}
 	
@@ -168,6 +171,9 @@ public class Main extends Canvas implements Runnable{
 		    gameHud.render(g, getWidth(), getHeight(), this);
 		}
 		
+		if(this.gameMenu == 1) {
+			pauseMenu.Render(g, getWidth(), getHeight());
+		}
 		
 		g.dispose();
 		bs.show();
@@ -194,6 +200,7 @@ public class Main extends Canvas implements Runnable{
 		frame.setVisible(true);
 		frame.requestFocus();
 		game.start();
+		
 		
 	
 		
@@ -226,9 +233,18 @@ public class Main extends Canvas implements Runnable{
 		
 		
 		if(key == KeyEvent.VK_M) {
-		player.look();
+		player.look();	
+		}
+		
+		if (key == KeyEvent.VK_ESCAPE) {
+		
 			
-			
+		if(this.gamestate == 1 && this.gameMenu == 0) {
+		this.gameMenu = 1;	
+		}else if(this.gamestate == 1 && this.gameMenu == 1) {
+		this.gameMenu = 0;	
+		}
+		
 		}
 		
 		//*******************

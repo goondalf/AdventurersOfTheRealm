@@ -33,11 +33,16 @@ public boolean lookbool;
 	
 	
 	public void move(int changeX, int changeY) {
-
-		if (game.getGameState() == 1 && this.lookbool == false) {
+		boolean solidBool = false;
+		
+		
+		if (game.getGameState() == 1 && this.lookbool == false && game.gameMenu == 0) {
 		
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
-		if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() == null){
+			if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() != null) {
+				 solidBool = this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure().isSolid();
+			}
+			if(solidBool == false){
 		this.y = changeY + this.y;
 		this.x = changeX + this.x;
 		}

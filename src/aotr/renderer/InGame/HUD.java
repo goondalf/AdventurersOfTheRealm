@@ -1,4 +1,4 @@
-package aotr.renderer;
+package aotr.renderer.InGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
