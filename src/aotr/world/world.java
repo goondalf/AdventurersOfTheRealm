@@ -52,6 +52,9 @@ public void generateWorld() {
 	this.worldArray[10][12].setStructure(game.sIndex.getIndex(0));
 	this.worldArray[11][12].setStructure(game.sIndex.getIndex(5));
 	this.worldArray[10][11].setFloor(game.getFloor(4));
+	
+	Structure structure = game.sIndex.getIndex(6);
+	this.worldArray[15][11].setStructure(structure);
 	}	
 	
 }

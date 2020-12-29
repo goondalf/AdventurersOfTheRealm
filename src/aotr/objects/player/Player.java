@@ -52,10 +52,19 @@ public boolean lookbool;
 	}else if(this.lookbool == true) {
 		this.look.move(changeX, changeY);
 		
+	}	
 	}
-		
+	
+	
+	public void interact(int x, int y) {
+		if(game.getWorld().getTile(this.x+x, this.y+y).getStructure() != null) {
+			game.getWorld().getTile(this.x+x, this.y+y).getStructure().interact(game);
+		}
 		
 	}
+	
+	
+	
 	
 	public void look() {
 

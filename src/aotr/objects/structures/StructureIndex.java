@@ -6,12 +6,12 @@ import java.awt.image.BufferedImage;
 import aotr.resources.graphics.textureProcessor;
 import aotr.world.Tile;
 
-public class StructureIndex {
+public class StructureIndex  {
 	private Structure[] sIndex = new Structure[10];
 	private BufferedImage tex;
 	private Structure structure;
 	private textureProcessor texP;
-public StructureIndex(BufferedImage texture) {
+public StructureIndex(BufferedImage texture)  {
 	
 	texP = new textureProcessor(texture);
 	for(int i = 0; i < 10; i++) {
@@ -55,13 +55,13 @@ public StructureIndex(BufferedImage texture) {
 		//wooden door closed
 		case 6:
 			tex = texP.grabImage(16, 16, 32, 32);
-			structure = new Structure("Wood Wall", i, texP.changeImageColor(tex, Color.white, new Color(139,29,19)),true);
+			structure = new Structure("Wood Door", i, texP.changeImageColor(tex, Color.white, new Color(139,29,19)),true);
 			sIndex[i] = structure;
 			break;
 		//wooden door open
 		case 7:
 			tex = texP.grabImage(16, 15, 32, 32);
-			structure = new Structure("Wood Wall", i, texP.changeImageColor(tex, Color.white, new Color(139,29,19)),false);
+			structure = new Structure("Wood Door", i, texP.changeImageColor(tex, Color.white, new Color(139,29,19)),false);
 			sIndex[i] = structure;
 			break;
 		
@@ -71,8 +71,11 @@ public StructureIndex(BufferedImage texture) {
 
 }
 
-public Structure getIndex(int i) {
-	return sIndex[i];
+public Structure getIndex(int i){
+
+	
+	Structure structure = new Structure(sIndex[i].getName(), sIndex[i].getID(), sIndex[i].getTex(), sIndex[i].isSolid());
+	return structure;
 }
 
 

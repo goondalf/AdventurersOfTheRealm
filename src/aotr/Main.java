@@ -16,6 +16,7 @@ import aotr.objects.player.Player;
 import aotr.objects.structures.StructureIndex;
 import aotr.renderer.MainMenu;
 import aotr.renderer.gameSpace;
+import aotr.renderer.InGame.ActionMenu;
 import aotr.renderer.InGame.HUD;
 import aotr.renderer.InGame.PauseMenu;
 import aotr.resources.graphics.textureLoader;
@@ -46,8 +47,9 @@ public class Main extends Canvas implements Runnable{
 	public Player player;
 	public HUD gameHud;
 	public PauseMenu pauseMenu;
+	public ActionMenu actionMenu;
 	//game variables
-	private int gamestate;
+	public int gamestate;
 	public int gameMenu;
 	
 	private BufferedImage sheet;
@@ -71,7 +73,8 @@ public class Main extends Canvas implements Runnable{
 	tiles = new gameSpace(this);
 	gameHud = new HUD(this);
 	player = new Player(50,50,this,sheet);
-	pauseMenu = new PauseMenu();
+	pauseMenu = new PauseMenu(this);
+	actionMenu = new ActionMenu(this);
 	
 	}
 	
@@ -173,6 +176,8 @@ public class Main extends Canvas implements Runnable{
 		
 		if(this.gameMenu == 1) {
 			pauseMenu.Render(g, getWidth(), getHeight());
+		}else if(this.gameMenu == 2) {
+			actionMenu.Render(g, getWidth(), getHeight());
 		}
 		
 		g.dispose();
@@ -211,18 +216,26 @@ public class Main extends Canvas implements Runnable{
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_RIGHT){
 			player.move(1, 0);
-		}else if(key == KeyEvent.VK_LEFT){
+		}
+		if(key == KeyEvent.VK_LEFT){
 			player.move(-1, 0);	
-		}else if(key == KeyEvent.VK_UP) {
+		}
+		if(key == KeyEvent.VK_UP) {
 		mm.menuScrollUp();	
 		player.move(0, -1);
-		}else if(key == KeyEvent.VK_DOWN) {
+		pauseMenu.scroll(-1);
+		actionMenu.scroll(-1);
+		}
+		if(key == KeyEvent.VK_DOWN) {
 		mm.menuScrollDown();
 		player.move(0, 1);
+		pauseMenu.scroll(1);
+		actionMenu.scroll(1);
 		}
 	
 		if(key == KeyEvent.VK_ENTER) {
-		mm.select();	
+		mm.select();
+		actionMenu.select();
 		}
 		if(key == KeyEvent.VK_K) {
 		tiles.zoomIn();
@@ -237,15 +250,14 @@ public class Main extends Canvas implements Runnable{
 		}
 		
 		if (key == KeyEvent.VK_ESCAPE) {
+		pauseMenu.toggle();
 		
+		}
+		
+		if (key == KeyEvent.VK_SPACE) {
+			actionMenu.toggle();
 			
-		if(this.gamestate == 1 && this.gameMenu == 0) {
-		this.gameMenu = 1;	
-		}else if(this.gamestate == 1 && this.gameMenu == 1) {
-		this.gameMenu = 0;	
-		}
-		
-		}
+			}
 		
 		//*******************
 		// movement controls

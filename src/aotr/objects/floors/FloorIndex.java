@@ -55,7 +55,8 @@ BufferedImage tex = texture;
 
 //returns floor object at position in array
 public Floor getIndex(int i) {
-	return fIndex[i];
+	Floor floor = fIndex[i];
+	return floor;
 	
 }
 
