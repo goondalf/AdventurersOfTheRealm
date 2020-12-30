@@ -77,6 +77,14 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 					g.drawImage(tile.getStructure().getTex(),  screenX, screenY, squareSide, squareSide, null);
 				}
 				
+				if(game.player.getPlayerState() == 1) {
+					if(relX <= midX + 1 && relX >= midX -1 && relY <= midY + 1 && relY >= midY -1 && ((relX != midX)||(relY != midY))) {
+						g.drawImage(game.player.getTadjTex(),  screenX, screenY, squareSide, squareSide, null);
+					}
+					
+				}
+				
+				
 				
 				if(game.player.lookbool == true && relX == game.getPlayerX() && relY == game.getPlayerY()) {
 					g.drawImage(game.getPlayerTex(), screenX, screenY, squareSide, squareSide, null);	

@@ -82,7 +82,7 @@ public void select() {
 if(this.Game.getGameState() == 1 && this.Game.gameMenu == 2) {	
 	switch(this.menuScroll) {
 	case 1:
-		this.Game.player.interact(-1, 0);
+		this.Game.player.setPlayerState(1);
 		break;
 	case 2:
 		break;

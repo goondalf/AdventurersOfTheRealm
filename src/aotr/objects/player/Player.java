@@ -10,9 +10,13 @@ public class Player {
 private int x;
 private int y;
 private Main game;
+private int playerState;
+
 private  BufferedImage tex;
 private BufferedImage looktex;
+private BufferedImage tAdjTex;
 private textureProcessor pros;
+
 public Look look;
 public boolean lookbool;
 
@@ -20,6 +24,8 @@ public boolean lookbool;
 	this.x = x;
 	this.y = y;
 	this.game = game;
+	this.playerState = 0;
+
 	lookbool = false;
 
 	pros = new textureProcessor(tex);
@@ -27,7 +33,7 @@ public boolean lookbool;
 	Look look = new Look (pros.changeImageColor(looktex, Color.white,Color.RED),this, game);
 	this.look = look;
 	this.tex = pros.grabImage(1, 5, 32, 32);
-		
+	this.tAdjTex = pros.changeImageColor(pros.grabImage(15, 16, 32, 32), Color.white,Color.RED);
 	}
 	
 	
@@ -36,7 +42,10 @@ public boolean lookbool;
 		boolean solidBool = false;
 		
 		
-		if (game.getGameState() == 1 && this.lookbool == false && game.gameMenu == 0) {
+		
+		
+		
+		if (game.getGameState() == 1 && this.lookbool == false && game.gameMenu == 0 && this.playerState == 0) {
 		
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
 			if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() != null) {
@@ -51,16 +60,25 @@ public boolean lookbool;
 		
 	}else if(this.lookbool == true) {
 		this.look.move(changeX, changeY);
+	}
 		
-	}	
+		
+		if(this.playerState == 1 && ((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
+			interact(changeX,changeY);
+		}
 	}
 	
 	
 	public void interact(int x, int y) {
+
+		
+
 		if(game.getWorld().getTile(this.x+x, this.y+y).getStructure() != null) {
 			game.getWorld().getTile(this.x+x, this.y+y).getStructure().interact(game);
-		}
+			this.playerState = 0;
+	}
 		
+	this.playerState = 0;	
 	}
 	
 	
@@ -105,7 +123,17 @@ public boolean lookbool;
 		
 	}
 	
+	public BufferedImage getTadjTex(){
+		return this.tAdjTex;
+	}
 
+	public int getPlayerState() {
+		return this.playerState;
+	}
+	
+	public void setPlayerState(int var) {
+		this.playerState = var;
+	}
 	
 	
 }
