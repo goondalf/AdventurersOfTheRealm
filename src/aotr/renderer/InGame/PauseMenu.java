@@ -16,7 +16,7 @@ private Main Game;
 	}
 
 	public void toggle() {
-		if(this.Game.gamestate == 1 && this.Game.gameMenu == 0) {
+		if(this.Game.gamestate == 1 && this.Game.gameMenu == 0 && this.Game.player.getPlayerState() == 0) {
 			this.Game.gameMenu = 1;	
 			this.menuScroll = 1;
 			}else if(this.Game.gamestate == 1 && this.Game.gameMenu == 1) {

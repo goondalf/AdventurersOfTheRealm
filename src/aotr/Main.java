@@ -10,6 +10,8 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import aotr.objects.entities.EntityManager;
+import aotr.objects.entities.EntityIndex;
 import aotr.objects.floors.Floor;
 import aotr.objects.floors.FloorIndex;
 import aotr.objects.player.Player;
@@ -38,12 +40,17 @@ public class Main extends Canvas implements Runnable{
 	
 	private BufferedImage image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 	
+	
+	//index
+	public FloorIndex fIndex;
+	public StructureIndex sIndex;
+	public EntityIndex eIndex;
+	public EntityManager eManager;
+	
 	//game objects
 	private MainMenu mm;
 	public gameSpace tiles;
-	public FloorIndex fIndex;
-	public StructureIndex sIndex;
-	private world gameWorld;
+	public world gameWorld;
 	public Player player;
 	public HUD gameHud;
 	public PauseMenu pauseMenu;
@@ -68,6 +75,8 @@ public class Main extends Canvas implements Runnable{
 	this.gameMenu = 0;
 	this.fIndex = new FloorIndex(sheet);
 	this.sIndex = new StructureIndex(sheet);
+	this.eIndex = new EntityIndex(sheet);
+	this.eManager = new EntityManager(this);
 	mm = new MainMenu(this);
 	gameWorld = new world(this);
 	tiles = new gameSpace(this);
@@ -152,7 +161,11 @@ public class Main extends Canvas implements Runnable{
 	private void tick() {
 		this.requestFocus();
 		
+		if(this.getWorld().getTile(16, 16).getEntity() == null) {
+			System.out.println("nothing here");
+		}
 		
+		System.out.println("X:"+ this.player.getX() +" Y:" +this.player.getY());
 	}
 
 	private void render() {
@@ -211,6 +224,14 @@ public class Main extends Canvas implements Runnable{
 		
 	}
 
+	
+	public void cancel() {
+	player.cancel();
+	if(this.gameMenu == 2) {
+		this.gameMenu= 0;
+	}
+		
+	}
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -251,7 +272,7 @@ public class Main extends Canvas implements Runnable{
 		
 		if (key == KeyEvent.VK_ESCAPE) {
 		pauseMenu.toggle();
-		
+		cancel();
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {

@@ -14,7 +14,8 @@ private Structure structure;
 private Entity entity;
 	public Tile (Floor floorTile, Structure structure , Entity entity, Item[] items) {
 		this.floor = floorTile;
-		
+		this.structure = structure;
+		this.entity = entity;
 		
 	}
 	

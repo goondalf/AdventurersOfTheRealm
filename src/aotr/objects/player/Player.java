@@ -36,20 +36,23 @@ public boolean lookbool;
 	this.tAdjTex = pros.changeImageColor(pros.grabImage(15, 16, 32, 32), Color.white,Color.RED);
 	}
 	
+	public void cancel() {
+		this.playerState = 0;
+	}
 	
 	
 	public void move(int changeX, int changeY) {
 		boolean solidBool = false;
-		
-		
-		
-		
 		
 		if (game.getGameState() == 1 && this.lookbool == false && game.gameMenu == 0 && this.playerState == 0) {
 		
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
 			if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() != null) {
 				 solidBool = this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure().isSolid();
+			}
+			
+			if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getEntity() != null) {
+				 solidBool = true;
 			}
 			if(solidBool == false){
 		this.y = changeY + this.y;

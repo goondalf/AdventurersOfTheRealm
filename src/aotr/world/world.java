@@ -35,13 +35,19 @@ for(int x=0; x < worldWidth; x++) {
 
 public void generateWorld() {
 
-	
+	this.game.player.setX(15);
+	this.game.player.setY(15);
+
 	for(int x=0; x < worldWidth; x++) {
 		for(int y=0; y < worldHeight; y++) {
 			setTile = new Tile(game.getFloor(rand.nextInt(2)),null,null,null);	
 			this.worldArray[x][y] = setTile;
 			
 		}
+		
+		
+	this.worldArray[16][16].setEntity(game.eIndex.getIndex(0));
+		
 	
 	this.worldArray[10][10].setStructure(game.sIndex.getIndex(0));
 	this.worldArray[9][10].setStructure(game.sIndex.getIndex(2));

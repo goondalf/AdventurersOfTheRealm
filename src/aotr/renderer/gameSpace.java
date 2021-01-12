@@ -34,8 +34,8 @@ int squareSide;
 
 public gameSpace(Main game){
 this.game = game;
-frameWidth =  31;
-frameHeight = 19;
+this.frameWidth =  31;
+this.frameHeight = 19;
 
 }
 	
@@ -70,6 +70,7 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 				}else {
 				floorTex = world.getTile(relX, relY).getFloorTex();
 				tile = world.getTile(relX, relY);
+				
 				g.drawImage(floorTex, screenX, screenY, squareSide, squareSide, null);	
 				
 				
@@ -77,6 +78,9 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 					g.drawImage(tile.getStructure().getTex(),  screenX, screenY, squareSide, squareSide, null);
 				}
 				
+				if(tile.getEntity() != null) {
+					g.drawImage(tile.getEntity().getTex(),  screenX, screenY, squareSide, squareSide, null);
+				}
 				if(game.player.getPlayerState() == 1) {
 					if(relX <= midX + 1 && relX >= midX -1 && relY <= midY + 1 && relY >= midY -1 && ((relX != midX)||(relY != midY))) {
 						g.drawImage(game.player.getTadjTex(),  screenX, screenY, squareSide, squareSide, null);
