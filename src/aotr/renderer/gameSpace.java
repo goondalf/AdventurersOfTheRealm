@@ -78,9 +78,11 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 					g.drawImage(tile.getStructure().getTex(),  screenX, screenY, squareSide, squareSide, null);
 				}
 				
-				if(tile.getEntity() != null) {
-					g.drawImage(tile.getEntity().getTex(),  screenX, screenY, squareSide, squareSide, null);
+				if(game.eManager.EntityAtPos(relX, relY) != null) {
+					g.drawImage(game.eManager.EntityAtPos(relX, relY).getTex(),  screenX, screenY, squareSide, squareSide, null);
+
 				}
+				
 				if(game.player.getPlayerState() == 1) {
 					if(relX <= midX + 1 && relX >= midX -1 && relY <= midY + 1 && relY >= midY -1 && ((relX != midX)||(relY != midY))) {
 						g.drawImage(game.player.getTadjTex(),  screenX, screenY, squareSide, squareSide, null);

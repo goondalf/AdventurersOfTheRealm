@@ -44,6 +44,8 @@ public boolean lookbool;
 	public void move(int changeX, int changeY) {
 		boolean solidBool = false;
 		
+		int finalX = changeX + this.x;
+		int finalY = changeY + this.y;
 		if (game.getGameState() == 1 && this.lookbool == false && game.gameMenu == 0 && this.playerState == 0) {
 		
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
@@ -51,7 +53,7 @@ public boolean lookbool;
 				 solidBool = this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure().isSolid();
 			}
 			
-			if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getEntity() != null) {
+			if( game.eManager.EntityAtPos(finalX, finalY) != null) {
 				 solidBool = true;
 			}
 			if(solidBool == false){

@@ -21,7 +21,7 @@ this.worldArray = new Tile[worldWidth][worldHeight];
 this.game = game;	
 
 
-setTile = new Tile(game.getFloor(0),null,null,null);
+setTile = new Tile(game.getFloor(0),null,null);
 for(int x=0; x < worldWidth; x++) {
 	for(int y=0; y < worldHeight; y++) {
 			
@@ -40,14 +40,15 @@ public void generateWorld() {
 
 	for(int x=0; x < worldWidth; x++) {
 		for(int y=0; y < worldHeight; y++) {
-			setTile = new Tile(game.getFloor(rand.nextInt(2)),null,null,null);	
+			setTile = new Tile(game.getFloor(rand.nextInt(2)),null,null);	
 			this.worldArray[x][y] = setTile;
 			
 		}
-		
-		
-	this.worldArray[16][16].setEntity(game.eIndex.getIndex(0));
-		
+		}
+	
+	
+	game.eManager.spawnEntity(16, 16, 0);
+	
 	
 	this.worldArray[10][10].setStructure(game.sIndex.getIndex(0));
 	this.worldArray[9][10].setStructure(game.sIndex.getIndex(2));
@@ -61,7 +62,6 @@ public void generateWorld() {
 	
 	Structure structure = game.sIndex.getIndex(6);
 	this.worldArray[15][11].setStructure(structure);
-	}	
 	
 }
 

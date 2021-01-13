@@ -75,7 +75,7 @@ public class Main extends Canvas implements Runnable{
 	this.gameMenu = 0;
 	this.fIndex = new FloorIndex(sheet);
 	this.sIndex = new StructureIndex(sheet);
-	this.eIndex = new EntityIndex(sheet);
+	this.eIndex = new EntityIndex(sheet,this);
 	this.eManager = new EntityManager(this);
 	mm = new MainMenu(this);
 	gameWorld = new world(this);
@@ -161,11 +161,7 @@ public class Main extends Canvas implements Runnable{
 	private void tick() {
 		this.requestFocus();
 		
-		if(this.getWorld().getTile(16, 16).getEntity() == null) {
-			System.out.println("nothing here");
-		}
-		
-		System.out.println("X:"+ this.player.getX() +" Y:" +this.player.getY());
+	
 	}
 
 	private void render() {
@@ -300,7 +296,7 @@ public class Main extends Canvas implements Runnable{
 			
 		}
 		if(key == KeyEvent.VK_S) {
-			
+		this.eManager.callAI();	
 		}
 		if(key == KeyEvent.VK_D) {
 			player.move(1, 0);

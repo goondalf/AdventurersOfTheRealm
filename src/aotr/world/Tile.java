@@ -11,11 +11,10 @@ public class Tile {
 
 private Floor floor;
 private Structure structure;
-private Entity entity;
-	public Tile (Floor floorTile, Structure structure , Entity entity, Item[] items) {
+
+	public Tile (Floor floorTile, Structure structure , Item[] items) {
 		this.floor = floorTile;
 		this.structure = structure;
-		this.entity = entity;
 		
 	}
 	
@@ -30,14 +29,7 @@ private Entity entity;
 		this.structure = structure;
 	}
 	
-	public void setEntity(Entity entity) {
-		this.entity = entity;
-	}
-
-
-	public Entity getEntity() {
-		return this.entity;		
-	}
+	
 	
 	public Structure getStructure() {
 		return this.structure;
