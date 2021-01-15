@@ -48,7 +48,7 @@ public void generateWorld() {
 	
 	
 	game.eManager.spawnEntity(16, 16, 0);
-	
+	game.eManager.spawnEntity(17, 17, 0);
 	
 	this.worldArray[10][10].setStructure(game.sIndex.getIndex(0));
 	this.worldArray[9][10].setStructure(game.sIndex.getIndex(2));

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import aotr.Main;
+import aotr.objects.Stats;
 import aotr.resources.graphics.textureProcessor;
 
 public class Player {
@@ -19,13 +20,15 @@ private textureProcessor pros;
 
 public Look look;
 public boolean lookbool;
+public Stats stats;
 
 	public Player(int x, int y, Main game, BufferedImage tex) {
 	this.x = x;
 	this.y = y;
 	this.game = game;
 	this.playerState = 0;
-
+	this.stats = new Stats();
+	
 	lookbool = false;
 
 	pros = new textureProcessor(tex);

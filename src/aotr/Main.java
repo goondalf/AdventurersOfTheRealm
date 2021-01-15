@@ -30,6 +30,7 @@ import aotr.world.world;
 
 public class Main extends Canvas implements Runnable{
 
+	
 	public static int WIDTH =320;
 	public static int HEIGHT = 320;
 	public static final int SCALE = 2;

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import aotr.Main;
+import aotr.objects.Stats;
 
 
 
@@ -15,13 +16,14 @@ public class Entity {
 	private int x;
 	private int y;
 	private Main game;
+	public Stats stats;
 	
 	public Entity(int ID, String name, BufferedImage sprite, Main game) {
 		this.sprite = sprite;
 		this.name = name;
 		this.ID = ID;
 		this.game = game;
-		
+		this.stats = new Stats();
 	}
 	
 	
