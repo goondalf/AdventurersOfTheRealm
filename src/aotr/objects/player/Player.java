@@ -51,7 +51,7 @@ public Stats stats;
 		int finalY = changeY + this.y;
 		if (game.getGameState() == 1 && this.lookbool == false && game.gameMenu == 0 && this.playerState == 0) {
 		
-		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
+		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
 			if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() != null) {
 				 solidBool = this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure().isSolid();
 			}
@@ -71,7 +71,7 @@ public Stats stats;
 	}
 		
 		
-		if(this.playerState == 1 && ((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
+		if(this.playerState == 1 && ((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
 			interact(changeX,changeY);
 		}
 	}
@@ -82,7 +82,7 @@ public Stats stats;
 		
 
 		if(game.getWorld().getTile(this.x+x, this.y+y).getStructure() != null) {
-			game.getWorld().getTile(this.x+x, this.y+y).getStructure().interact(game);
+			game.getWorld().getTile(this.x+x, this.y+y).getStructure().interact();
 			this.playerState = 0;
 	}
 		

@@ -12,14 +12,14 @@ private Tile setTile;
 private Main game;
 private Random rand = new Random();
 private Structure setStructure;
-public final int worldWidth = 100;
-public final int worldHeight = 100;
+private int worldWidth;
+private int worldHeight;
 
-
-public world(Main game) {
+public world(Main game, int worldWidth, int worldHeight) {
 this.worldArray = new Tile[worldWidth][worldHeight];	
 this.game = game;	
-
+this.worldWidth = worldWidth;
+this.worldHeight = worldHeight;
 
 setTile = new Tile(game.getFloor(0),null,null);
 for(int x=0; x < worldWidth; x++) {
@@ -34,7 +34,7 @@ for(int x=0; x < worldWidth; x++) {
 
 
 public void generateWorld() {
-
+this.game.gamestate = 10;
 	this.game.player.setX(15);
 	this.game.player.setY(15);
 
@@ -54,15 +54,13 @@ public void generateWorld() {
 	this.worldArray[9][10].setStructure(game.sIndex.getIndex(2));
 	this.worldArray[11][10].setStructure(game.sIndex.getIndex(3));
 	this.worldArray[9][11].setStructure(game.sIndex.getIndex(1));
-	this.worldArray[11][11].setStructure(game.sIndex.getIndex(6));
+	this.worldArray[11][11].setStructure(game.sIndex.getIndex(13));
 	this.worldArray[9][12].setStructure(game.sIndex.getIndex(4));
 	this.worldArray[10][12].setStructure(game.sIndex.getIndex(0));
 	this.worldArray[11][12].setStructure(game.sIndex.getIndex(5));
 	this.worldArray[10][11].setFloor(game.getFloor(4));
 	
-	Structure structure = game.sIndex.getIndex(6);
-	this.worldArray[15][11].setStructure(structure);
-	
+	this.game.gamestate = 1;	
 }
 
 public void loadWorld() {
@@ -73,6 +71,15 @@ public void loadWorld() {
 public Tile getTile(int x, int y) {
 	
 	return this.worldArray[x][y];
+}
+
+
+public int getWidth() {
+	return this.worldHeight;
+}
+
+public int getHeight() {
+	return this.worldWidth;
 }
 
 }

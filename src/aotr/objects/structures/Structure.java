@@ -9,34 +9,40 @@ private String name;
 private int ID;
 private BufferedImage texture;
 private Boolean collisionBool;
-	
-	public Structure(String name, int ID, BufferedImage texture, Boolean Solid) {
+private Main game;
+	public Structure(String name, int ID, BufferedImage texture, Boolean Solid, Main game) {
 	this.name = name;
 	this.ID = ID;
 	this.texture = texture;
 	this.collisionBool = Solid;
+	this.game = game;
 	}
 
 	
 
 	
 	
-	public void interact(Main game) {
+	public void interact() {
 		
 		int ID = this.ID;
 		
 		switch(ID) {
-		case 6:
-			replace(game.sIndex.getIndex(7));
+		case 13:
+			replace(game.sIndex.getIndex(14));
 			break;
-		case 7:	
-			replace(game.sIndex.getIndex(6));
+		case 14:	
+			replace(game.sIndex.getIndex(13));
 			break;
 		
-		}
+		}	
+	}
+	
+	
+	public void wallConnect() {
 		
 		
 	}
+	
 	
 	public void replace(Structure structure) {
 		this.ID = structure.ID;
@@ -45,7 +51,6 @@ private Boolean collisionBool;
 		this.texture = structure.texture;
 	
 				
-		
 	}
 	
 	public BufferedImage getTex() {

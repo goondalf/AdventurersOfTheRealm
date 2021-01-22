@@ -64,10 +64,14 @@ if(this.game.getGameState() == 0) {
 switch(this.menuselector) {
 case 0:
 	game.generateWorld();
-	game.setGameState(1);
+	//game.setGameState(1);
 	break;
 case 1:
 	
+	break;
+	
+case 2:
+	game.settings.toggleMenu();
 	break;
 case 3:
 	game.exit();

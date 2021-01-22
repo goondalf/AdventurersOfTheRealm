@@ -43,7 +43,7 @@ public class Entity {
 	
 		int finalX = changeX + this.x;
 		int finalY = changeY + this.y;
-		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().worldWidth) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().worldHeight)) {
+		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
 			if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() != null) {
 				 solidBool = this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure().isSolid();
 			}

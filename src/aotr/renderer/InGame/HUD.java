@@ -1,6 +1,7 @@
 package aotr.renderer.InGame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -37,7 +38,9 @@ Main game;
 		g.setColor(Color.black);
 		g.fillRect(topLcornerx + topLcornery, topLcornery*2, hudwidth-topLcornery*2, hudheight-topLcornery*2);
 		
-		
+		g.setColor(Color.white);
+		g.setFont(new Font("SansSerif", Font.PLAIN, windowHeight / 40 ));
+		g.drawString("health:" + game.player.stats.getHealth(), topLcornerx+ topLcornery, hudheight/20);
 		
 		
 		

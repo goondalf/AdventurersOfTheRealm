@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import aotr.Main;
-import aotr.objects.floors.Floor;
 import aotr.resources.graphics.textureProcessor;
 
 public class EntityIndex {

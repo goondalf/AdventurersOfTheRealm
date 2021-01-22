@@ -1,8 +1,11 @@
 package aotr;
 
 import java.awt.Canvas;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -16,7 +19,9 @@ import aotr.objects.floors.Floor;
 import aotr.objects.floors.FloorIndex;
 import aotr.objects.player.Player;
 import aotr.objects.structures.StructureIndex;
+import aotr.renderer.LoadingScreen;
 import aotr.renderer.MainMenu;
+import aotr.renderer.Settings;
 import aotr.renderer.gameSpace;
 import aotr.renderer.InGame.ActionMenu;
 import aotr.renderer.InGame.HUD;
@@ -37,9 +42,10 @@ public class Main extends Canvas implements Runnable{
 	public final static String TITLE = "Adventurers of the Realm";
 	
 	private boolean running = false;
-	private Thread thread;
+	public Thread thread;
 	
 	private BufferedImage image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
+	
 	
 	
 	//index
@@ -56,15 +62,26 @@ public class Main extends Canvas implements Runnable{
 	public HUD gameHud;
 	public PauseMenu pauseMenu;
 	public ActionMenu actionMenu;
+	public LoadingScreen loadscreen;
+	public Settings settings;
+	public JFrame frame;
 	//game variables
 	public int gamestate;
 	public int gameMenu;
-	
+	public boolean haltRender = false;
 	private BufferedImage sheet;
 	textureLoader texLoader = new textureLoader();
+	public boolean fullscreen;
+	
+	private int worldWidth = 10000;
+	private int worldHeight = 10000;
+	
+	public static GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    public static GraphicsDevice device = graphics.getDefaultScreenDevice();
+	 
 	
 	public void init() {
-		
+		this.gamestate = 10;
 		
 	try {
 		this.sheet = texLoader.loadImage("default/ascii.png");
@@ -73,28 +90,36 @@ public class Main extends Canvas implements Runnable{
 		e.printStackTrace();
 	}
 	
+	
 	this.gameMenu = 0;
 	this.fIndex = new FloorIndex(sheet);
-	this.sIndex = new StructureIndex(sheet);
+	this.sIndex = new StructureIndex(sheet,this);
 	this.eIndex = new EntityIndex(sheet,this);
 	this.eManager = new EntityManager(this);
+	
+	settings = new Settings(this);
 	mm = new MainMenu(this);
-	gameWorld = new world(this);
+	gameWorld = new world(this,worldWidth, worldHeight);
 	tiles = new gameSpace(this);
 	gameHud = new HUD(this);
 	player = new Player(50,50,this,sheet);
 	pauseMenu = new PauseMenu(this);
 	actionMenu = new ActionMenu(this);
 	
+	
+	this.gamestate = 0;
+	
 	}
 	
 	
-	private synchronized void start() {
+	private synchronized void start(JFrame frame) {
+		this.frame = frame;
 		if(running)
 			return;
 		running = true;
 		thread = new Thread(this);
 		thread.start();
+		
 	}
 	
 	
@@ -120,7 +145,9 @@ public class Main extends Canvas implements Runnable{
 	
 	
 	public void run() {
-		init();
+		loadscreen = new LoadingScreen();
+		
+		
 		long lastTime = System.nanoTime();
 		final double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -138,7 +165,9 @@ public class Main extends Canvas implements Runnable{
 				updates++;
 				delta--;
 				frames++;
+				if(haltRender == false) {
 				render();
+				}
 			}
 			;
 			
@@ -162,18 +191,25 @@ public class Main extends Canvas implements Runnable{
 	private void tick() {
 		this.requestFocus();
 		
+		
+		
+		
+		
 	
 	}
 
 	private void render() {
-
+		
+		
 		
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
+		
 		Graphics g = bs.getDrawGraphics();
+		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 		
 		
@@ -182,56 +218,92 @@ public class Main extends Canvas implements Runnable{
 		}else if(gamestate == 1) {
 		    tiles.render(g, getWidth(), getHeight(), this);
 		    gameHud.render(g, getWidth(), getHeight(), this);
+		    if(this.gameMenu == 1) {
+				pauseMenu.Render(g, getWidth(), getHeight());
+			}else if(this.gameMenu == 2) {
+				actionMenu.Render(g, getWidth(), getHeight());
+			}
+		}else if(gamestate == 10) {
+			loadscreen.render(g, getWidth(), getHeight());
+			
+		}else if(gamestate == 2) {
+			settings.render(g,getWidth(),getHeight());
 		}
 		
-		if(this.gameMenu == 1) {
-			pauseMenu.Render(g, getWidth(), getHeight());
-		}else if(this.gameMenu == 2) {
-			actionMenu.Render(g, getWidth(), getHeight());
-		}
+		
 		
 		g.dispose();
 		bs.show();
 		
+		}
 		
 		
-	}
+	
+	
+
+	
 	
 	public static void main(String args[]) {
+
+		
 		Main game = new Main();
+		game.haltRender = true;
+		game.fullscreen = false;
+		
 		
 		game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.addKeyListener(new keyInput(game));
-		JFrame frame = new JFrame(Main.TITLE);
-		//frame.addKeyListener(new keyInput(game));
-		frame.setFocusable(true);
-		frame.add(game);
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		frame.requestFocus();
-		game.start();
+		
+		game.buildFrame(game);
 		
 		
-	
+		game.haltRender = false;
+		game.init();
 		
 	}
 
+	
+	
+	public void buildFrame(Main game) {
+		JFrame frame = new JFrame();
+		frame.add(game);
+		frame.setExtendedState(frame.MAXIMIZED_BOTH);
+		frame.setFocusable(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+		game.start(frame);
+		frame.pack();
+		
+		frame.setVisible(true);
+		
+		
+	}
 	
 	public void cancel() {
 	player.cancel();
 	if(this.gameMenu == 2) {
 		this.gameMenu= 0;
 	}
-		
 	}
-
+	
+	public void toggleFullScreen() {
+		if(gamestate != 10) {
+		if(fullscreen == false) {
+		device.setFullScreenWindow(this.frame);
+		fullscreen = true;
+		}else {
+			device.setFullScreenWindow(null);
+			fullscreen = false;
+		}
+		}
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
+		
 		if(key == KeyEvent.VK_RIGHT){
 			player.move(1, 0);
 		}
@@ -243,17 +315,21 @@ public class Main extends Canvas implements Runnable{
 		player.move(0, -1);
 		pauseMenu.scroll(-1);
 		actionMenu.scroll(-1);
+		settings.menuScrollUp();
 		}
 		if(key == KeyEvent.VK_DOWN) {
 		mm.menuScrollDown();
 		player.move(0, 1);
 		pauseMenu.scroll(1);
 		actionMenu.scroll(1);
+		settings.menuScrollDown();
 		}
 	
 		if(key == KeyEvent.VK_ENTER) {
 		mm.select();
 		actionMenu.select();
+		settings.select();
+		pauseMenu.select();
 		}
 		if(key == KeyEvent.VK_K) {
 		tiles.zoomIn();
@@ -270,12 +346,16 @@ public class Main extends Canvas implements Runnable{
 		if (key == KeyEvent.VK_ESCAPE) {
 		pauseMenu.toggle();
 		cancel();
+		
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {
 			actionMenu.toggle();
-			
 			}
+		
+		if(key == KeyEvent.VK_B) {
+			
+		}
 		
 		//*******************
 		// movement controls
@@ -367,4 +447,14 @@ public class Main extends Canvas implements Runnable{
 	public int getPlayerY() {
 		return player.getY();	
 	}
+	
+	public int getWorldWidth() {
+		return this.worldWidth;
+	}
+	
+	public int getWorldHeight() {
+		return this.worldWidth;
+	}
 }
+
+

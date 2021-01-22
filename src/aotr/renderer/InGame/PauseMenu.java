@@ -42,7 +42,7 @@ private Main Game;
 		String a = new String("return to game");
 		String b = new String("options");
 		String c = new String("exit");
-		String d = new String("look");
+		
 		
 		switch(menuScroll) {
 		case 1:
@@ -56,9 +56,7 @@ private Main Game;
 		case 3:
 			c = ">"+c;
 			break;
-		case 4:
-			d = ">"+d;
-			break;
+	
 		
 		
 		}
@@ -66,6 +64,26 @@ private Main Game;
 		g.drawString(a, cornerX, cornerY + windowHeight/40);
 		g.drawString(b, cornerX, cornerY + 2*windowHeight/40);
 		g.drawString(c, cornerX, cornerY + 3*windowHeight/40);
+	}
+	
+	
+	public void select() {
+		if(this.Game.getGameState() == 1 && this.Game.gameMenu == 1) {	
+		switch(menuScroll) {
+		case 1:
+			Game.gameMenu = 0;
+			break;
+			
+		case 2:
+			Game.settings.toggleMenu();
+			break;
+			
+		case 3:
+			
+			break;
+		
+		}
+		}
 	}
 
 
