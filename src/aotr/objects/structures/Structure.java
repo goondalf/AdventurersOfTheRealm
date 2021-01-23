@@ -10,6 +10,8 @@ private int ID;
 private BufferedImage texture;
 private Boolean collisionBool;
 private Main game;
+private int x;
+private int y;
 	public Structure(String name, int ID, BufferedImage texture, Boolean Solid, Main game) {
 	this.name = name;
 	this.ID = ID;
@@ -27,21 +29,20 @@ private Main game;
 		int ID = this.ID;
 		
 		switch(ID) {
-		case 13:
-			replace(game.sIndex.getIndex(14));
-			break;
-		case 14:	
-			replace(game.sIndex.getIndex(13));
-			break;
-		
+		case 0:
+			if(this.collisionBool == true) {
+				this.collisionBool = false;
+				this.texture = (game.tManager.getImage(4,1,0));
+			}else if(this.collisionBool == false) {
+				this.collisionBool = true;
+				this.texture = (game.tManager.getImage(4,0,0));
+		break;
+			}
 		}	
 	}
 	
 	
-	public void wallConnect() {
-		
-		
-	}
+	
 	
 	
 	public void replace(Structure structure) {
@@ -49,9 +50,17 @@ private Main game;
 		this.collisionBool = structure.collisionBool;
 		this.name = structure.name;
 		this.texture = structure.texture;
-	
 				
 	}
+	
+	
+	public void setPos(int x, int y) {
+		this.y = x;
+		this.y = y;
+	}
+	
+	
+	
 	
 	public BufferedImage getTex() {
 		return this.texture;

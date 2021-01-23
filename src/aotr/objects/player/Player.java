@@ -1,11 +1,11 @@
 package aotr.objects.player;
 
-import java.awt.Color;
+
 import java.awt.image.BufferedImage;
 
 import aotr.Main;
 import aotr.objects.Stats;
-import aotr.resources.graphics.textureProcessor;
+
 
 public class Player {
 private int x;
@@ -14,29 +14,25 @@ private Main game;
 private int playerState;
 
 private  BufferedImage tex;
-private BufferedImage looktex;
 private BufferedImage tAdjTex;
-private textureProcessor pros;
-
 public Look look;
-public boolean lookbool;
 public Stats stats;
 
-	public Player(int x, int y, Main game, BufferedImage tex) {
+	public Player(int x, int y, Main game) {
 	this.x = x;
 	this.y = y;
 	this.game = game;
 	this.playerState = 0;
 	this.stats = new Stats();
 	
-	lookbool = false;
+	
 
-	pros = new textureProcessor(tex);
-	looktex = pros.grabImage(9, 6, 32, 32);
-	Look look = new Look (pros.changeImageColor(looktex, Color.white,Color.RED),this, game);
-	this.look = look;
-	this.tex = pros.grabImage(1, 5, 32, 32);
-	this.tAdjTex = pros.changeImageColor(pros.grabImage(15, 16, 32, 32), Color.white,Color.RED);
+	
+	this.look = new Look (game.tManager.getImage(0, 8, 5), game);
+	
+	
+	this.tex = game.tManager.getImage(0, 0, 4);
+	this.tAdjTex = (game.tManager.getImage(0, 14, 15));
 	}
 	
 	public void cancel() {
@@ -49,11 +45,11 @@ public Stats stats;
 		
 		int finalX = changeX + this.x;
 		int finalY = changeY + this.y;
-		if (game.getGameState() == 1 && this.lookbool == false && game.gameMenu == 0 && this.playerState == 0) {
+		if (game.getGameState() == 1 && playerState == 0 && game.gameMenu == 0 && this.playerState == 0) {
 		
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
-			if( this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure() != null) {
-				 solidBool = this.game.getWorld().getTile(this.x + changeX, this.y +changeY).getStructure().isSolid();
+			if( game.gameWorld.getStructure(finalX, finalY) != null) {
+				 solidBool = game.gameWorld.getStructure(finalX, finalY).isSolid();
 			}
 			
 			if( game.eManager.EntityAtPos(finalX, finalY) != null) {
@@ -66,7 +62,7 @@ public Stats stats;
 		}
 
 		
-	}else if(this.lookbool == true) {
+	}else if(playerState == 2) {
 		this.look.move(changeX, changeY);
 	}
 		
@@ -81,8 +77,8 @@ public Stats stats;
 
 		
 
-		if(game.getWorld().getTile(this.x+x, this.y+y).getStructure() != null) {
-			game.getWorld().getTile(this.x+x, this.y+y).getStructure().interact();
+		if(game.gameWorld.getStructure(this.x+x, this.y+y) != null) {
+			game.gameWorld.getStructure(this.x+x, this.y+y).interact();
 			this.playerState = 0;
 	}
 		
@@ -94,12 +90,12 @@ public Stats stats;
 	
 	public void look() {
 
-		if(lookbool == false) {
-			lookbool = true;
+		if(playerState == 0) {
+			playerState = 2;
 			this.look.setX(this.x);
 			this.look.setY(this.y);
-		}else if(lookbool == true) {
-			lookbool = false;
+		}else if(playerState == 2) {
+			playerState = 0;
 		}
 			
 		

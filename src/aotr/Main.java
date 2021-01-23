@@ -19,6 +19,7 @@ import aotr.objects.floors.Floor;
 import aotr.objects.floors.FloorIndex;
 import aotr.objects.player.Player;
 import aotr.objects.structures.StructureIndex;
+import aotr.objects.structures.StructureManager;
 import aotr.renderer.LoadingScreen;
 import aotr.renderer.MainMenu;
 import aotr.renderer.Settings;
@@ -26,7 +27,7 @@ import aotr.renderer.gameSpace;
 import aotr.renderer.InGame.ActionMenu;
 import aotr.renderer.InGame.HUD;
 import aotr.renderer.InGame.PauseMenu;
-import aotr.resources.graphics.textureLoader;
+import aotr.resources.graphics.textureManager;
 import aotr.system.keyInput;
 import aotr.world.world;
 
@@ -53,6 +54,8 @@ public class Main extends Canvas implements Runnable{
 	public StructureIndex sIndex;
 	public EntityIndex eIndex;
 	public EntityManager eManager;
+	public textureManager tManager;
+	public StructureManager sManager;
 	
 	//game objects
 	private MainMenu mm;
@@ -70,7 +73,7 @@ public class Main extends Canvas implements Runnable{
 	public int gameMenu;
 	public boolean haltRender = false;
 	private BufferedImage sheet;
-	textureLoader texLoader = new textureLoader();
+	
 	public boolean fullscreen;
 	
 	private int worldWidth = 10000;
@@ -82,27 +85,34 @@ public class Main extends Canvas implements Runnable{
 	
 	public void init() {
 		this.gamestate = 10;
-		
+	tManager = new textureManager(this);
 	try {
-		this.sheet = texLoader.loadImage("default/ascii.png");
+		tManager.loadImage("default/ascii.png");
+		tManager.loadImage("default/AOTRfloors.png");
+		tManager.loadImage("default/AOTRentities.png");
+		tManager.loadImage("default/AOTRwalls.png");
+		tManager.loadImage("default/AOTRstructures.png");
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	
 	
-	this.gameMenu = 0;
-	this.fIndex = new FloorIndex(sheet);
-	this.sIndex = new StructureIndex(sheet,this);
-	this.eIndex = new EntityIndex(sheet,this);
-	this.eManager = new EntityManager(this);
+	
+	
+	gameMenu = 0;
+	fIndex = new FloorIndex(this);
+	sIndex = new StructureIndex(this);
+	eIndex = new EntityIndex(this);
+	eManager = new EntityManager(this);
+	sManager = new StructureManager(this);
 	
 	settings = new Settings(this);
 	mm = new MainMenu(this);
 	gameWorld = new world(this,worldWidth, worldHeight);
 	tiles = new gameSpace(this);
 	gameHud = new HUD(this);
-	player = new Player(50,50,this,sheet);
+	player = new Player(50,50,this);
 	pauseMenu = new PauseMenu(this);
 	actionMenu = new ActionMenu(this);
 	

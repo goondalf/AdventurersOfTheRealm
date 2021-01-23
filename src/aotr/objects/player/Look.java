@@ -10,18 +10,17 @@ int x;
 int y;
 Main game;
 public BufferedImage tex;
-private  Player player;
 
-public Look(BufferedImage tex,Player player, Main game) {
+
+public Look(BufferedImage tex, Main game) {
 this.x = 0;
 this.y = 0;
 this.tex = tex;
-this.player = player;
 this.game = game;
 }
 
 public void move(int changeX, int changeY) {
-	if (this.game.getGameState() == 1 && this.player.lookbool == true) {
+	if (this.game.getGameState() == 1 && game.player.getPlayerState() == 2) {
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < 100)) {
 		this.x = changeX + this.x;
 		}

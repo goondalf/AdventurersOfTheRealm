@@ -3,8 +3,6 @@ package aotr.renderer;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import aotr.Main;
-import aotr.objects.player.Look;
-import aotr.world.Tile;
 import aotr.world.world;
 
 
@@ -13,7 +11,7 @@ public class gameSpace {
 private world world;
 private BufferedImage floorTex;
 private Main game;
-private Tile tile;
+
 
 BufferedImage midTex;
 
@@ -46,11 +44,11 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 	
 	world = game.getWorld();
 	
-	if(game.player.lookbool == false) {
+	if(game.player.getPlayerState() == 0) {
 		midX = game.getPlayerX();
 		midY = game.getPlayerY();
 		midTex = game.getPlayerTex();
-	}else if(game.player.lookbool == true) {
+	}else if(game.player.getPlayerState() == 2) {
 		midX = game.player.look.getX();
 		midY = game.player.look.getY();
 		midTex = game.player.look.getTex(); 
@@ -66,16 +64,16 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 				
 				
 				if((relX < 0) || (relX > world.getWidth() -1) || (relY < 0) || (relY > world.getHeight()-1)) {
-				floorTex = game.fIndex.getIndex(3).getTex();	
+				
 				}else {
 				floorTex = world.getTile(relX, relY).getFloorTex();
-				tile = world.getTile(relX, relY);
+				
 				
 				g.drawImage(floorTex, screenX, screenY, squareSide, squareSide, null);	
 				
 				
-				if(tile.getStructure() != null) {
-					g.drawImage(tile.getStructure().getTex(),  screenX, screenY, squareSide, squareSide, null);
+				if(world.getStructure(relX, relY) != null) {
+					g.drawImage(world.getStructure(relX, relY).getTex(),  screenX, screenY, squareSide, squareSide, null);
 				}
 				
 				if(game.eManager.EntityAtPos(relX, relY) != null) {
@@ -92,7 +90,7 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 				
 				
 				
-				if(game.player.lookbool == true && relX == game.getPlayerX() && relY == game.getPlayerY()) {
+				if(game.player.getPlayerState() == 2 && relX == game.getPlayerX() && relY == game.getPlayerY()) {
 					g.drawImage(game.getPlayerTex(), screenX, screenY, squareSide, squareSide, null);	
 					}
 			
