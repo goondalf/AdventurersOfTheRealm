@@ -3,37 +3,34 @@ package aotr.objects.entities;
 import java.util.ArrayList;
 
 import aotr.Main;
+import aotr.world.world;
 
 public class EntityManager {
 
 
 private ArrayList<Entity> ActiveEntities;
 private Main game;
-private int[][] entityLayer;
+
 
 	public EntityManager(Main game) {
 	this.game = game;
-	this.entityLayer = new int[game.getWorldWidth()][game.getWorldHeight()];
-	for(int x = 0; x < game.getWorldWidth(); x++) {
-		for(int y = 0; y < game.getWorldHeight(); y++) {
-			this.entityLayer[x][y] = -1;
-		}
-	}
+	
+	
 	
 	this.ActiveEntities = new ArrayList<Entity>();
 	}
 	
 	
-	public void spawnEntity(int x, int y, int entityID) {
+	public void spawnEntity(int x, int y,int z, int entityID) {
 	
 	Entity entity;
 
 	
 	entity = game.eIndex.getIndex(entityID);
-	entity.setPos(x, y);
+	entity.setPos(x, y,z);
 	
 	this.ActiveEntities.add(entity);
-	this.entityLayer[x][y] = ActiveEntities.size()-1;
+	world.setEntity(x,y,z,entity); 
 		
 	}
 	
@@ -42,9 +39,9 @@ private int[][] entityLayer;
 	if(game.getGameState() == 1 && game.player.getPlayerState() == 0 && game.gameMenu == 0) {
 		for(int i = 0;i < ActiveEntities.size();i++) {
 			if(this.ActiveEntities.get(i) != null) {
-				this.entityLayer[ActiveEntities.get(i).getX()][ActiveEntities.get(i).getY()] = -1;
+				world.setEntity(ActiveEntities.get(i).getX(),ActiveEntities.get(i).getY(),ActiveEntities.get(i).getZ(),null);
 				this.ActiveEntities.get(i).callAI();
-				this.entityLayer[ActiveEntities.get(i).getX()][ActiveEntities.get(i).getY()] = i;
+				world.setEntity(ActiveEntities.get(i).getX(),ActiveEntities.get(i).getY(),ActiveEntities.get(i).getZ(),this.ActiveEntities.get(i)); 
 		}
 		}
 		
@@ -61,12 +58,10 @@ private int[][] entityLayer;
 		return entity;
 	}
 	
-	public Entity EntityAtPos(int x, int y) {
+	public Entity EntityAtPos(int x, int y,int z) {
 		Entity entity;
 		entity = null;
-		if(this.entityLayer[x][y] != -1) {
-			entity = ActiveEntities.get(entityLayer[x][y]);
-		}
-		return entity;
+		
+		return game.gameWorld.getTile(x, y, z).getEntity();
 	}
 }

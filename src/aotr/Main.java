@@ -78,6 +78,7 @@ public class Main extends Canvas implements Runnable{
 	
 	private int worldWidth = 10000;
 	private int worldHeight = 10000;
+	private int worldDepth = 4;
 	
 	public static GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
     public static GraphicsDevice device = graphics.getDefaultScreenDevice();
@@ -87,11 +88,12 @@ public class Main extends Canvas implements Runnable{
 		this.gamestate = 10;
 	tManager = new textureManager(this);
 	try {
-		tManager.loadImage("default/ascii.png");
+		tManager.loadImage("default/AOTRascii.png");
 		tManager.loadImage("default/AOTRfloors.png");
 		tManager.loadImage("default/AOTRentities.png");
 		tManager.loadImage("default/AOTRwalls.png");
 		tManager.loadImage("default/AOTRstructures.png");
+		tManager.loadImage("default/AOTRmisc.png");
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -109,7 +111,7 @@ public class Main extends Canvas implements Runnable{
 	
 	settings = new Settings(this);
 	mm = new MainMenu(this);
-	gameWorld = new world(this,worldWidth, worldHeight);
+	gameWorld = new world(this,worldWidth, worldHeight,worldDepth);
 	tiles = new gameSpace(this);
 	gameHud = new HUD(this);
 	player = new Player(50,50,this);
@@ -226,7 +228,7 @@ public class Main extends Canvas implements Runnable{
 		if(gamestate == 0) {
 			mm.render(g, getWidth(), getHeight());
 		}else if(gamestate == 1) {
-		    tiles.render(g, getWidth(), getHeight(), this);
+		    tiles.render(g, getWidth(), getHeight());
 		    gameHud.render(g, getWidth(), getHeight(), this);
 		    if(this.gameMenu == 1) {
 				pauseMenu.Render(g, getWidth(), getHeight());
@@ -364,8 +366,10 @@ public class Main extends Canvas implements Runnable{
 			}
 		
 		if(key == KeyEvent.VK_B) {
-			
+			player.changeZ(1);
 		}
+		
+		
 		
 		//*******************
 		// movement controls
@@ -464,6 +468,10 @@ public class Main extends Canvas implements Runnable{
 	
 	public int getWorldHeight() {
 		return this.worldWidth;
+	}
+	
+	public int getWorldDepth() {
+		return this.worldDepth;
 	}
 }
 
