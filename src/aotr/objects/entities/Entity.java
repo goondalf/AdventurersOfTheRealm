@@ -15,7 +15,6 @@ public class Entity {
 	private int ID;
 	private int x;
 	private int y;
-	private int z;
 	private Main game;
 	public Stats stats;
 	
@@ -45,13 +44,17 @@ public class Entity {
 		int finalX = changeX + this.x;
 		int finalY = changeY + this.y;
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
-			if( game.gameWorld.getStructure(finalX, finalY,z) != null) {
-				 solidBool = game.gameWorld.getStructure(finalX, finalY,z).isSolid();
+			if( game.gameWorld.getStructure(finalX, finalY) != null) {
+				 solidBool = game.gameWorld.getStructure(finalX, finalY).isSolid();
 			}
 			
 		if(game.player.getX() == finalX && game.player.getY() == finalY) {
 			solidBool = true;
+<<<<<<< HEAD
 		}else if(game.gameWorld.getEntity(finalX, finalY,z) != null) {
+=======
+		}else if(game.eManager.EntityAtPos(finalX, finalY) != null) {
+>>>>>>> parent of a8470dc (3d)
 			solidBool = true;
 		}
 			
@@ -65,10 +68,9 @@ public class Entity {
 
 	
 	
-	public void setPos(int x, int y, int z) {
+	public void setPos(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.z = z;
 	}
 	
 	public int getX() {
@@ -77,10 +79,6 @@ public class Entity {
 	
 	public int getY() {
 		return this.y;
-	}
-	
-	public int getZ() {
-		return this.z;
 	}
 	public int getID() {
 	return this.ID;	

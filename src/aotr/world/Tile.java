@@ -2,19 +2,22 @@ package aotr.world;
 
 import java.awt.image.BufferedImage;
 
-import aotr.objects.entities.Entity;
+
 import aotr.objects.floors.Floor;
 import aotr.objects.items.Item;
-import aotr.objects.structures.Structure;
 
 
 public class Tile {
 
 private Floor floor;
+<<<<<<< HEAD
 private Structure structure;
 private int entity;
+=======
+>>>>>>> parent of a8470dc (3d)
 
-	public Tile (Floor floorTile) {
+
+	public Tile (Floor floorTile, Item[] items) {
 		this.floor = floorTile;
 		this.entity = -1;
 		
@@ -26,6 +29,7 @@ private int entity;
 		return this.floor.getTex();
 		
 	}
+<<<<<<< HEAD
 	
 public BufferedImage getStructureTex() {
 	BufferedImage tex = null;
@@ -57,10 +61,10 @@ public BufferedImage getStructureTex() {
 		
 		return entity;
 	}
+=======
+
+>>>>>>> parent of a8470dc (3d)
 	
-	public Structure getStructure() {
-		return this.structure;
-	}
 	
 	public void setFloor(Floor floor) {
 		this.floor = floor;

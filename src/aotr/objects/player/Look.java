@@ -21,10 +21,10 @@ this.game = game;
 
 public void move(int changeX, int changeY) {
 	if (this.game.getGameState() == 1 && game.player.getPlayerState() == 2) {
-		if(((this.x + changeX) > -1) && ((this.x + changeX) < game.gameWorld.getWidth())) {
+		if(((this.x + changeX) > -1) && ((this.x + changeX) < 100)) {
 		this.x = changeX + this.x;
 		}
-		if(((this.y + changeY) > -1) && ((this.y + changeY) < game.gameWorld.getHeight())) {
+		if(((this.y + changeY) > -1) && ((this.y + changeY) < 100)) {
 		this.y = changeY + this.y;
 		}}
 		

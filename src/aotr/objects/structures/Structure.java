@@ -12,7 +12,6 @@ private Boolean collisionBool;
 private Main game;
 private int x;
 private int y;
-private int z;
 	public Structure(String name, int ID, BufferedImage texture, Boolean Solid, Main game) {
 	this.name = name;
 	this.ID = ID;
@@ -55,10 +54,9 @@ private int z;
 	}
 	
 	
-	public void setPos(int x, int y, int z) {
+	public void setPos(int x, int y) {
 		this.y = x;
 		this.y = y;
-		this.z = z;
 	}
 	
 	

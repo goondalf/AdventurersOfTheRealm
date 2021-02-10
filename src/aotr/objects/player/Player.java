@@ -10,7 +10,6 @@ import aotr.objects.Stats;
 public class Player {
 private int x;
 private int y;
-private int z;
 private Main game;
 private int playerState;
 
@@ -22,7 +21,6 @@ public Stats stats;
 	public Player(int x, int y, Main game) {
 	this.x = x;
 	this.y = y;
-	this.z = 1;
 	this.game = game;
 	this.playerState = 0;
 	this.stats = new Stats();
@@ -50,11 +48,15 @@ public Stats stats;
 		if (game.getGameState() == 1 && playerState == 0 && game.gameMenu == 0 && this.playerState == 0) {
 		
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
-			if( game.gameWorld.getStructure(finalX, finalY,this.z) != null) {
-				 solidBool = game.gameWorld.getStructure(finalX, finalY,this.z).isSolid();
+			if( game.gameWorld.getStructure(finalX, finalY) != null) {
+				 solidBool = game.gameWorld.getStructure(finalX, finalY).isSolid();
 			}
 			
+<<<<<<< HEAD
 			if( game.gameWorld.getEntity(finalX, finalY,z) != null) {
+=======
+			if( game.eManager.EntityAtPos(finalX, finalY) != null) {
+>>>>>>> parent of a8470dc (3d)
 				 solidBool = true;
 			}
 			if(solidBool == false){
@@ -79,17 +81,14 @@ public Stats stats;
 
 		
 
-		if(game.gameWorld.getStructure(this.x+x, this.y+y,this.z) != null) {
-			game.gameWorld.getStructure(this.x+x, this.y+y,this.z).interact();
+		if(game.gameWorld.getStructure(this.x+x, this.y+y) != null) {
+			game.gameWorld.getStructure(this.x+x, this.y+y).interact();
 			this.playerState = 0;
 	}
 		
 	this.playerState = 0;	
 	}
 	
-	public void changeZ(int num) {
-		z += num;
-	}
 	
 	
 	
@@ -125,10 +124,6 @@ public Stats stats;
 	
 	public int getY() {
 		return this.y;	
-	}
-	
-	public int getZ() {
-		return this.z;
 	}
 	
 	public BufferedImage getTex() {
