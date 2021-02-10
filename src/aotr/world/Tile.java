@@ -12,11 +12,11 @@ public class Tile {
 
 private Floor floor;
 private Structure structure;
-private Entity entity;
+private int entity;
 
 	public Tile (Floor floorTile) {
 		this.floor = floorTile;
-		
+		this.entity = -1;
 		
 	}
 	
@@ -37,24 +37,25 @@ public BufferedImage getStructureTex() {
 		return tex;
 		
 	}
-public BufferedImage getEntityTex() {
-	BufferedImage tex = null;
-	if(entity != null) {
-		tex = this.entity.getTex();
-	}
-	return tex;
-}
+//public BufferedImage getEntityTex() {
+//	BufferedImage tex = null;
+//	if(entity != null) {
+//		tex = this.entity.getTex();
+//	}
+//	return tex;
+//}
 
 
 	public void setStructure(Structure structure) {
 		this.structure = structure;
 	}
-	public void setEntity(Entity entity) {
+	public void setEntity(int entity) {
 		this.entity = entity;
 	}
 	
-	public Entity getEntity() {
-		return this.entity;
+	public int getEntity() {
+		
+		return entity;
 	}
 	
 	public Structure getStructure() {

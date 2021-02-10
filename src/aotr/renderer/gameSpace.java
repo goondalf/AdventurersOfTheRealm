@@ -75,6 +75,9 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 				if(game.gameWorld.getTile(relX, relY, game.player.getZ()) != null){
 					tile = game.gameWorld.getTile(relX, relY, game.player.getZ());
 					
+					if(game.gameWorld.getEntity(relX, relY, game.player.getZ()) != null) {
+					entityTex = game.gameWorld.getEntity(relX, relY, game.player.getZ()).getTex();
+					}
 				}else{
 					int lowerZ = 0;	
 			       while(game.gameWorld.getTile(relX, relY, game.player.getZ() - lowerZ) == null) {
@@ -86,7 +89,7 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 				
 				floortex = tile.getFloorTex();
 				structureTex = tile.getStructureTex();
-				entityTex = tile.getEntityTex();
+				
 				
 				
 				if(floortex != null) {

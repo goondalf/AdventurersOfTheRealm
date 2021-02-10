@@ -25,9 +25,9 @@ this.worldHeight = worldHeight;
 setTile = new Tile(game.getFloor(0));
 for(int x=0; x < worldWidth; x++) {
 	for(int y=0; y < worldHeight; y++) {
-			
-		this.worldArray[x][y][1] = setTile;
-		
+			for(int z=0; z < worldDepth; z++) {
+		this.worldArray[x][y][z] = setTile;
+			}
 	}
 
 }	
@@ -47,14 +47,20 @@ this.game.gamestate = 10;
 		}
 		}
 	
+	
+	game.eManager.spawnEntity(12, 12,1, 0);
+	
+	
 	this.worldArray[10][10][2] = new Tile(game.getFloor(0));
-	game.eManager.spawnEntity(16, 16,1, 0);
-	game.eManager.spawnEntity(17, 17,1, 0);
+	
+
 	game.sManager.createStructure(10, 10,1, 0);
 	
 	
 	
 	this.game.gamestate = 1;	
+	
+	   System.gc();
 }
 
 public void loadWorld() {
@@ -63,13 +69,9 @@ public void loadWorld() {
 }
 
 
-public static void setEntity(int x, int y, int z,Entity entity) {
-	worldArray[x][y][z].setEntity(entity);
-}
 
-public void setStructure(int x, int y, int z,Structure structure) {
-	worldArray[x][y][z].setStructure(structure);
-}
+
+
 
 
 public Tile getTile(int x, int y,int z) {
@@ -77,6 +79,18 @@ public Tile getTile(int x, int y,int z) {
 	return worldArray[x][y][z];
 }
 
+public Entity getEntity(int x, int y, int z) {
+	Entity entity = null;
+	if(worldArray[x][y][z].getEntity() != -1) {
+		entity = game.eManager.getIndex(worldArray[x][y][z].getEntity());
+	}
+	
+	return entity;
+}
+
+public void setStructure(int x, int y, int z, Structure structure) {
+	worldArray[x][y][z].setStructure(structure);
+}
 
 public Structure getStructure(int x, int y,int z) {
 	return game.sManager.structureAtPosition(x, y,z);

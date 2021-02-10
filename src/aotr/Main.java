@@ -118,7 +118,7 @@ public class Main extends Canvas implements Runnable{
 	pauseMenu = new PauseMenu(this);
 	actionMenu = new ActionMenu(this);
 	
-	
+	System.gc();
 	this.gamestate = 0;
 	
 	}

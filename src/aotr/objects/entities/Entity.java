@@ -51,7 +51,7 @@ public class Entity {
 			
 		if(game.player.getX() == finalX && game.player.getY() == finalY) {
 			solidBool = true;
-		}else if(game.eManager.EntityAtPos(finalX, finalY,z) != null) {
+		}else if(game.gameWorld.getEntity(finalX, finalY,z) != null) {
 			solidBool = true;
 		}
 			

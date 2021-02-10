@@ -54,7 +54,7 @@ public Stats stats;
 				 solidBool = game.gameWorld.getStructure(finalX, finalY,this.z).isSolid();
 			}
 			
-			if( game.eManager.EntityAtPos(finalX, finalY,z) != null) {
+			if( game.gameWorld.getEntity(finalX, finalY,z) != null) {
 				 solidBool = true;
 			}
 			if(solidBool == false){

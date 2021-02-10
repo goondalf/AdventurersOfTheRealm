@@ -30,18 +30,20 @@ private Main game;
 	entity.setPos(x, y,z);
 	
 	this.ActiveEntities.add(entity);
-	world.setEntity(x,y,z,entity); 
+	game.gameWorld.getTile(x, y, z).setEntity(ActiveEntities.size() - 1);; 
 		
 	}
 	
 	
 	public void callAI() {
-	if(game.getGameState() == 1 && game.player.getPlayerState() == 0 && game.gameMenu == 0) {
+	Entity entity;
+		if(game.getGameState() == 1 && game.player.getPlayerState() == 0 && game.gameMenu == 0) {
 		for(int i = 0;i < ActiveEntities.size();i++) {
 			if(this.ActiveEntities.get(i) != null) {
-				world.setEntity(ActiveEntities.get(i).getX(),ActiveEntities.get(i).getY(),ActiveEntities.get(i).getZ(),null);
+				entity = ActiveEntities.get(i);
+				game.gameWorld.getTile(entity.getX(),entity.getY(),entity.getZ()).setEntity(-1);
 				this.ActiveEntities.get(i).callAI();
-				world.setEntity(ActiveEntities.get(i).getX(),ActiveEntities.get(i).getY(),ActiveEntities.get(i).getZ(),this.ActiveEntities.get(i)); 
+				game.gameWorld.getTile(entity.getX(),entity.getY(),entity.getZ()).setEntity(i); 
 		}
 		}
 		
@@ -58,10 +60,5 @@ private Main game;
 		return entity;
 	}
 	
-	public Entity EntityAtPos(int x, int y,int z) {
-		Entity entity;
-		entity = null;
-		
-		return game.gameWorld.getTile(x, y, z).getEntity();
-	}
+
 }
