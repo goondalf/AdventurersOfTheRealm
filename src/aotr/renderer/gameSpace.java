@@ -3,13 +3,13 @@ package aotr.renderer;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import aotr.Main;
+import aotr.world.Tile;
 import aotr.world.world;
 
 
 
 public class gameSpace {
 private world world;
-private BufferedImage floorTex;
 private Main game;
 
 
@@ -37,8 +37,8 @@ this.frameHeight = 19;
 
 }
 	
-public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
-	this.game = game;
+public void render(Graphics g, int windowWidth, int windowHeight) {
+	Tile tile = null;
 	this.windowHeight = windowHeight;
 	this.windoWidth = windowWidth;
 	
@@ -66,16 +66,15 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 				if((relX < 0) || (relX > world.getWidth() -1) || (relY < 0) || (relY > world.getHeight()-1)) {
 				
 				}else {
-				floorTex = world.getTile(relX, relY).getFloorTex();
+				BufferedImage floortex = null;
+				BufferedImage structureTex = null;
+				BufferedImage entityTex = null;
+				boolean drop = false;	
 				
 				
-<<<<<<< HEAD
 				if(game.gameWorld.getTile(relX, relY, game.player.getZ()) != null){
 					tile = game.gameWorld.getTile(relX, relY, game.player.getZ());
 					
-					if(game.gameWorld.getEntity(relX, relY, game.player.getZ()) != null) {
-					entityTex = game.gameWorld.getEntity(relX, relY, game.player.getZ()).getTex();
-					}
 				}else{
 					int lowerZ = 0;	
 			       while(game.gameWorld.getTile(relX, relY, game.player.getZ() - lowerZ) == null) {
@@ -87,19 +86,24 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 				
 				floortex = tile.getFloorTex();
 				structureTex = tile.getStructureTex();
-				
-=======
-				g.drawImage(floorTex, screenX, screenY, squareSide, squareSide, null);	
->>>>>>> parent of a8470dc (3d)
+				entityTex = tile.getEntityTex();
 				
 				
-				if(world.getStructure(relX, relY) != null) {
-					g.drawImage(world.getStructure(relX, relY).getTex(),  screenX, screenY, squareSide, squareSide, null);
+				if(floortex != null) {
+				g.drawImage(floortex, screenX, screenY, squareSide, squareSide, null);	
 				}
 				
-				if(game.eManager.EntityAtPos(relX, relY) != null) {
-					g.drawImage(game.eManager.EntityAtPos(relX, relY).getTex(),  screenX, screenY, squareSide, squareSide, null);
+				if(structureTex != null) {
+					g.drawImage(structureTex,  screenX, screenY, squareSide, squareSide, null);
+				}
+				
+				if(entityTex != null) {
+					g.drawImage(entityTex,  screenX, screenY, squareSide, squareSide, null);
 
+				}
+				
+				if(drop == true) {
+					g.drawImage(game.tManager.getImage(5, 0, 0),  screenX, screenY, squareSide, squareSide, null);
 				}
 				
 				if(game.player.getPlayerState() == 1) {
@@ -119,15 +123,22 @@ public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
 
 				}
 			
-			}
+			
 			 
 		}
 		g.drawImage(midTex, frameWidth/2 *(squareSide), frameHeight/2 *(squareSide), squareSide, squareSide, null);
 		
-		
+		}	
 
 			
 }
+
+public void getContents(int x, int y, int z) {
+	
+}
+
+
+
 
 public void zoomIn() {
 if(game.getGameState() == 1 && frameWidth > 7) {
