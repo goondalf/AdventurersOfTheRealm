@@ -24,7 +24,7 @@ public class StructureManager {
 		structure.setPos(x, y,z);
 		
 		this.structureList.add(structure);
-		game.gameWorld.setStructure(x, y, z, structure);
+		game.world.setStructure(x, y, z, structure);
 	}
 	
 	public Structure getIndex(int i) {
@@ -34,7 +34,7 @@ public class StructureManager {
 	public Structure structureAtPosition(int x, int  y,int z) {
 		
 		
-		return game.gameWorld.getTile(x, y, z).getStructure();
+		return game.world.getTile(x, y, z).getStructure();
 	}
 	
 }

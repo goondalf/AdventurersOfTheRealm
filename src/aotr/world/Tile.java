@@ -45,6 +45,20 @@ public BufferedImage getEntityTex() {
 	return tex;
 }
 
+public boolean isSolid() {
+	boolean solidbool = false;
+	if(this.structure != null) {
+	solidbool = this.structure.isSolid();
+	}
+	if(this.entity != null) {
+    solidbool = this.entity.isSolid();
+	}
+	
+	
+	
+	return solidbool;
+}
+
 
 	public void setStructure(Structure structure) {
 		this.structure = structure;

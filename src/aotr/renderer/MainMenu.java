@@ -63,8 +63,7 @@ public void select() {
 if(this.game.getGameState() == 0) {	
 switch(this.menuselector) {
 case 0:
-	game.generateWorld();
-	//game.setGameState(1);
+	game.gamestate = 3;
 	break;
 case 1:
 	

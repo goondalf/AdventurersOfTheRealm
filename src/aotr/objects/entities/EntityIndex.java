@@ -18,7 +18,7 @@ public class EntityIndex {
 		for(int i = 0; i < 10; i++) {
 			switch(i) {
 			case 0:
-				entity = new Entity(i,"debug",game.tManager.getImage(2, 2, 0),game);
+				entity = new Entity(i,"debug",game.tManager.getImage(2, 2, 0),true,game);
 			break;
 			
 			
@@ -29,7 +29,7 @@ public class EntityIndex {
 	
 
 	public Entity getIndex(int i) {
-		Entity ent = new Entity(this.entIndex.get(i).getID(),this.entIndex.get(i).getName(),this.entIndex.get(i).getTex(),game);
+		Entity ent = new Entity(this.entIndex.get(i).getID(),this.entIndex.get(i).getName(),this.entIndex.get(i).getTex(),this.entIndex.get(i).isSolid(),game);
 		return ent;
 	}
 

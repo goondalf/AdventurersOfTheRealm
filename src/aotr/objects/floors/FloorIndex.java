@@ -27,18 +27,19 @@ public FloorIndex (Main game) {
 		
 		switch(i) {
 	case 0:
+			
+		floor = new Floor(game.tManager.getImage(0, 8, 1), "blank");
+		break;
+		
+	case 1:
 		
 		floor = new Floor(game.tManager.getImage(1, 0, 0), "grass");
 		break;
-	case 1:
+	case 2:
 		
 		floor = new Floor(game.tManager.getImage(1, 1, 0), "stone");
 		break;
 	case 3:
-		
-		floor = new Floor(game.tManager.getImage(1, 1, 0), "blank");
-		break;
-	case 4:
 		
 		floor = new Floor(game.tManager.getImage(1, 2, 0), "Wood Floor");
 		break;

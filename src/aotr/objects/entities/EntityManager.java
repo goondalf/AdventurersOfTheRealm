@@ -62,6 +62,6 @@ private Main game;
 		Entity entity;
 		entity = null;
 		
-		return game.gameWorld.getTile(x, y, z).getEntity();
+		return game.world.getTile(x, y, z).getEntity();
 	}
 }

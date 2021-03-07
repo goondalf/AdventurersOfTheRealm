@@ -72,15 +72,15 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 				boolean drop = false;	
 				
 				
-				if(game.gameWorld.getTile(relX, relY, game.player.getZ()) != null){
-					tile = game.gameWorld.getTile(relX, relY, game.player.getZ());
+				if(game.world.getTile(relX, relY, game.player.getZ()) != null){
+					tile = game.world.getTile(relX, relY, game.player.getZ());
 					
 				}else{
 					int lowerZ = 0;	
-			       while(game.gameWorld.getTile(relX, relY, game.player.getZ() - lowerZ) == null) {
+			       while(game.world.getTile(relX, relY, game.player.getZ() - lowerZ) == null) {
 						lowerZ ++;
 					}
-					tile = game.gameWorld.getTile(relX, relY, game.player.getZ() - lowerZ);
+					tile = game.world.getTile(relX, relY, game.player.getZ() - lowerZ);
 					drop = true;
 				}
 				

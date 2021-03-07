@@ -22,11 +22,11 @@ this.game = game;
 this.worldWidth = worldWidth;
 this.worldHeight = worldHeight;
 
-setTile = new Tile(game.getFloor(0));
+
 for(int x=0; x < worldWidth; x++) {
 	for(int y=0; y < worldHeight; y++) {
 			
-		this.worldArray[x][y][1] = setTile;
+		this.worldArray[x][y][1] = new Tile(game.fIndex.getIndex(0));
 		
 	}
 
@@ -41,15 +41,15 @@ this.game.gamestate = 10;
 
 	for(int x=0; x < worldWidth; x++) {
 		for(int y=0; y < worldHeight; y++) {
-			setTile = new Tile(game.getFloor(rand.nextInt(2)));	
+			setTile = new Tile(game.getFloor(game.rand.randBetween(2,1)));	
 			this.worldArray[x][y][1] = setTile;
 			
 		}
 		}
 	
 	this.worldArray[10][10][2] = new Tile(game.getFloor(0));
+	
 	game.eManager.spawnEntity(16, 16,1, 0);
-	game.eManager.spawnEntity(17, 17,1, 0);
 	game.sManager.createStructure(10, 10,1, 0);
 	
 	
@@ -80,6 +80,15 @@ public Tile getTile(int x, int y,int z) {
 
 public Structure getStructure(int x, int y,int z) {
 	return game.sManager.structureAtPosition(x, y,z);
+}
+
+public boolean isTileSolid(int x, int y,int z) {
+	boolean solidbool = false;
+	solidbool = this.worldArray[x][y][z].isSolid();
+	if(game.player.getX() == x && game.player.getY() == y && game.player.getZ() == z) {
+		solidbool = true;
+	}
+	return solidbool;
 }
 
 

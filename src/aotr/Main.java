@@ -20,6 +20,7 @@ import aotr.objects.floors.FloorIndex;
 import aotr.objects.player.Player;
 import aotr.objects.structures.StructureIndex;
 import aotr.objects.structures.StructureManager;
+import aotr.renderer.GenerateWorldMenu;
 import aotr.renderer.LoadingScreen;
 import aotr.renderer.MainMenu;
 import aotr.renderer.Settings;
@@ -29,6 +30,7 @@ import aotr.renderer.InGame.HUD;
 import aotr.renderer.InGame.PauseMenu;
 import aotr.resources.graphics.textureManager;
 import aotr.system.keyInput;
+import aotr.system.randGenerator;
 import aotr.world.world;
 
 
@@ -60,7 +62,7 @@ public class Main extends Canvas implements Runnable{
 	//game objects
 	private MainMenu mm;
 	public gameSpace tiles;
-	public world gameWorld;
+	public world world;
 	public Player player;
 	public HUD gameHud;
 	public PauseMenu pauseMenu;
@@ -68,6 +70,9 @@ public class Main extends Canvas implements Runnable{
 	public LoadingScreen loadscreen;
 	public Settings settings;
 	public JFrame frame;
+	public GenerateWorldMenu genMenu;
+	public randGenerator rand;
+	
 	//game variables
 	public int gamestate;
 	public int gameMenu;
@@ -76,8 +81,8 @@ public class Main extends Canvas implements Runnable{
 	
 	public boolean fullscreen;
 	
-	private int worldWidth = 10000;
-	private int worldHeight = 10000;
+	private int worldWidth = 300;
+	private int worldHeight = 300;
 	private int worldDepth = 4;
 	
 	public static GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -101,7 +106,7 @@ public class Main extends Canvas implements Runnable{
 	
 	
 	
-	
+	rand = new randGenerator(this);
 	gameMenu = 0;
 	fIndex = new FloorIndex(this);
 	sIndex = new StructureIndex(this);
@@ -109,9 +114,10 @@ public class Main extends Canvas implements Runnable{
 	eManager = new EntityManager(this);
 	sManager = new StructureManager(this);
 	
+	
+	genMenu = new GenerateWorldMenu(this);
 	settings = new Settings(this);
 	mm = new MainMenu(this);
-	gameWorld = new world(this,worldWidth, worldHeight,worldDepth);
 	tiles = new gameSpace(this);
 	gameHud = new HUD(this);
 	player = new Player(50,50,this);
@@ -240,6 +246,8 @@ public class Main extends Canvas implements Runnable{
 			
 		}else if(gamestate == 2) {
 			settings.render(g,getWidth(),getHeight());
+		}else if(gamestate == 3) {
+			genMenu.render(g, getWidth(), getHeight());
 		}
 		
 		
@@ -328,6 +336,7 @@ public class Main extends Canvas implements Runnable{
 		pauseMenu.scroll(-1);
 		actionMenu.scroll(-1);
 		settings.menuScrollUp();
+		genMenu.menuScrollUp();
 		}
 		if(key == KeyEvent.VK_DOWN) {
 		mm.menuScrollDown();
@@ -335,6 +344,7 @@ public class Main extends Canvas implements Runnable{
 		pauseMenu.scroll(1);
 		actionMenu.scroll(1);
 		settings.menuScrollDown();
+		genMenu.menuScrollDown();
 		}
 	
 		if(key == KeyEvent.VK_ENTER) {
@@ -342,6 +352,7 @@ public class Main extends Canvas implements Runnable{
 		actionMenu.select();
 		settings.select();
 		pauseMenu.select();
+		genMenu.select();
 		}
 		if(key == KeyEvent.VK_K) {
 		tiles.zoomIn();
@@ -423,10 +434,7 @@ public class Main extends Canvas implements Runnable{
 		
 	}
 	
-	public void setGameState(int input) {
-		this.gamestate = input;
-		
-	}
+
 	
 	public int getGameState() {
 		return this.gamestate;
@@ -443,11 +451,13 @@ public class Main extends Canvas implements Runnable{
 	}
 	
 	public world getWorld() {
-		return this.gameWorld;
+		return this.world;
 	}
 	
 	public void generateWorld() {
-		this.gameWorld.generateWorld();
+		gamestate = 10;
+		world = new world(this,worldWidth, worldHeight,worldDepth);
+		this.world.generateWorld();
 	}
 	
 	public BufferedImage getPlayerTex() {
@@ -463,6 +473,7 @@ public class Main extends Canvas implements Runnable{
 	}
 	
 	public int getWorldWidth() {
+		
 		return this.worldWidth;
 	}
 	

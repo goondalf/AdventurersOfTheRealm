@@ -43,21 +43,15 @@ public Stats stats;
 	
 	
 	public void move(int changeX, int changeY) {
-		boolean solidBool = false;
+
 		
 		int finalX = changeX + this.x;
 		int finalY = changeY + this.y;
 		if (game.getGameState() == 1 && playerState == 0 && game.gameMenu == 0 && this.playerState == 0) {
 		
 		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
-			if( game.gameWorld.getStructure(finalX, finalY,this.z) != null) {
-				 solidBool = game.gameWorld.getStructure(finalX, finalY,this.z).isSolid();
-			}
 			
-			if( game.eManager.EntityAtPos(finalX, finalY,z) != null) {
-				 solidBool = true;
-			}
-			if(solidBool == false){
+			if(game.world.getTile(finalX, finalY, this.z).isSolid() == false){
 		this.y = changeY + this.y;
 		this.x = changeX + this.x;
 		}
@@ -79,8 +73,8 @@ public Stats stats;
 
 		
 
-		if(game.gameWorld.getStructure(this.x+x, this.y+y,this.z) != null) {
-			game.gameWorld.getStructure(this.x+x, this.y+y,this.z).interact();
+		if(game.world.getStructure(this.x+x, this.y+y,this.z) != null) {
+			game.world.getStructure(this.x+x, this.y+y,this.z).interact();
 			this.playerState = 0;
 	}
 		
