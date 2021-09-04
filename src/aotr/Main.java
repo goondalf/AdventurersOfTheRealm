@@ -16,7 +16,6 @@ import javax.swing.JFrame;
 import aotr.objects.entities.EntityManager;
 import aotr.objects.floors.FloorIndex;
 import aotr.objects.player.Player;
-import aotr.objects.structures.StructureIndex;
 import aotr.objects.structures.StructureManager;
 import aotr.renderer.GenerateWorldMenu;
 import aotr.renderer.LoadingScreen;
@@ -51,7 +50,6 @@ public class Main extends Canvas implements Runnable{
 	
 	//index
 	public FloorIndex fIndex;
-	public StructureIndex sIndex;
 	public EntityManager eManager;
 	public textureManager tManager;
 	public StructureManager sManager;
@@ -106,7 +104,6 @@ public class Main extends Canvas implements Runnable{
 	rand = new randGenerator(this);
 	gameMenu = 0;
 	fIndex = new FloorIndex(this);
-	sIndex = new StructureIndex(this);
 	eManager = new EntityManager(this);
 	sManager = new StructureManager(this);
 	

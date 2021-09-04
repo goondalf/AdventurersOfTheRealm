@@ -7,7 +7,6 @@ import aotr.world.world;
 
 public class EntityManager {
 
-	private ArrayList<Entity> entIndex = new ArrayList<Entity>();
 private ArrayList<Entity> ActiveEntities;
 private Main game;
 
@@ -15,19 +14,6 @@ private Main game;
 	public EntityManager(Main game) {
 	this.game = game;
 	this.ActiveEntities = new ArrayList<Entity>();
-	Entity entity = null;
-	
-/*
-	for(int i = 0; i < 10; i++) {
-		switch(i) {
-		case 0:
-			entity = new Beetle(i,"debug",game.tManager.getImage(2, 2, 0),true,game);
-		break;
-		     
-		
-		}
-		entIndex.add(entity);
-	}*/
 	}
 	
 	

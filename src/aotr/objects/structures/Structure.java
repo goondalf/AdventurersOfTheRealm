@@ -4,17 +4,16 @@ import java.awt.image.BufferedImage;
 
 import aotr.Main;
 
-public class Structure {
-private String name;
-private int ID;
-private BufferedImage texture;
-private Boolean collisionBool;
-private Main game;
-private int x;
-private int y;
-private int z;
-private int isclimeable;
-	public Structure(String name, int ID, BufferedImage texture, Boolean Solid, int climeable,Main game) {
+public abstract class Structure {
+protected String name;
+protected BufferedImage texture;
+protected Boolean collisionBool;
+static Main game;
+protected int x,y,z,ID,isclimeable;
+
+	
+
+	public  Structure(String name, int ID, BufferedImage texture, Boolean Solid, int climeable,Main game) {
 	this.name = name;
 	this.ID = ID;
 	this.texture = texture;
@@ -27,22 +26,7 @@ private int isclimeable;
 
 	
 	
-	public void interact() {
-		
-		int ID = this.ID;
-		
-		switch(ID) {
-		case 0:
-			if(this.collisionBool == true) {
-				this.collisionBool = false;
-				this.texture = (game.tManager.getImage(4,1,0));
-			}else if(this.collisionBool == false) {
-				this.collisionBool = true;
-				this.texture = (game.tManager.getImage(4,0,0));
-		break;
-			}
-		}	
-	}
+	public abstract void interact(); 
 	
 	
 	

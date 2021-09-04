@@ -3,7 +3,6 @@ package aotr.objects.entities;
 import java.awt.image.BufferedImage;
 
 import aotr.Main;
-import aotr.objects.Stats;
 
 public abstract class Entity {
 private int x,y,z,ID;
@@ -16,7 +15,7 @@ private boolean solid;
 		this.sprite = sprite;
 		this.name = name;
 		this.ID = ID;
-		this.game = game;
+		Entity.game = game;
 		this.solid = isSolid;
 	}
 	

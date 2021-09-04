@@ -47,10 +47,17 @@ this.game.gamestate = 10;
 		}
 		}
 	
-	this.worldArray[10][10][2] = new Tile(game.fIndex.getIndex(0));
+	for(int x=0; x < 10; x++) {
+		for(int y=0; y < 10; y++) {
+			setTile = new Tile(game.fIndex.getIndex(2));	
+			worldArray[x][y][2] = setTile;
+			
+		}
+		}
+	
 	
 	game.eManager.spawnEntity(16, 16,1, 0);
-	game.sManager.createStructure(10, 10,1, 0);
+	game.sManager.buildStructure(10, 10,1, 0);
 	
 	
 	

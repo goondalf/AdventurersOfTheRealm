@@ -3,6 +3,7 @@ package aotr.objects.structures;
 import java.util.ArrayList;
 
 import aotr.Main;
+import aotr.objects.entities.Beetle;
 import aotr.objects.entities.Entity;
 
 public class StructureManager {
@@ -16,11 +17,15 @@ public class StructureManager {
 		
 	}
 
-	public void createStructure(int x, int y,int z, int id) {
+	
+	
+	
+	
+	public void buildStructure(int x, int y,int z, int id) {
 		Structure structure;
 
 		
-		structure = game.sIndex.getIndex(id);
+		structure = createStructure(id);
 		structure.setPos(x, y,z);
 		
 		this.structureList.add(structure);
@@ -37,5 +42,18 @@ public class StructureManager {
 		return game.world.getTile(x, y, z).getStructure();
 	}
 	
+	
+	
+	private Structure createStructure(int id) {
+		Structure structure = null;
+		switch(id) {
+		case 0:
+			structure = new WoodenDoor("Wood Door",id,game.tManager.getImage(4, 0, 0),true, 0,game);
+		break;
+		     
+		
+		}
+		return structure;
+	}
 }
 
