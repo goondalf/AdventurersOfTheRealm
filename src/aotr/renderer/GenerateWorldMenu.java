@@ -29,7 +29,7 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 	g.setColor(Color.white);
 	String world = "world";
 	String size = "world size";
-	String settings = "Settings";
+	
 	String generateWorld = "generate world";
 	
 	
@@ -41,9 +41,6 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 		size = ">" + size;
 		break;
 	case 2:
-		settings = ">" + settings;
-		break;
-	case 3:
 		generateWorld = ">" + generateWorld;
 		break;
 	
@@ -51,8 +48,7 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 	
 	g.drawString(world, windowWidth / 15, windowHeight/10 );
 	g.drawString(size, windowWidth / 15, windowHeight/10 *2);
-	g.drawString(settings, windowWidth / 15, windowHeight/10 *3);
-	g.drawString(generateWorld, windowWidth / 15, windowHeight/10 *4);
+	g.drawString(generateWorld, windowWidth / 15, windowHeight/10 *3);
 	
 
 }
@@ -71,9 +67,6 @@ case 1:
 	break;
 	
 case 2:
-	
-	break;
-case 3:
 	game.generateWorld();
 	break;
 

@@ -41,13 +41,13 @@ this.game.gamestate = 10;
 
 	for(int x=0; x < worldWidth; x++) {
 		for(int y=0; y < worldHeight; y++) {
-			setTile = new Tile(game.getFloor(game.rand.randBetween(2,1)));	
+			setTile = new Tile(game.fIndex.getIndex(game.rand.randBetween(2,1)));	
 			this.worldArray[x][y][1] = setTile;
 			
 		}
 		}
 	
-	this.worldArray[10][10][2] = new Tile(game.getFloor(0));
+	this.worldArray[10][10][2] = new Tile(game.fIndex.getIndex(0));
 	
 	game.eManager.spawnEntity(16, 16,1, 0);
 	game.sManager.createStructure(10, 10,1, 0);

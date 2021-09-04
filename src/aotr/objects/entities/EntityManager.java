@@ -7,17 +7,40 @@ import aotr.world.world;
 
 public class EntityManager {
 
-
+	private ArrayList<Entity> entIndex = new ArrayList<Entity>();
 private ArrayList<Entity> ActiveEntities;
 private Main game;
 
 
 	public EntityManager(Main game) {
 	this.game = game;
-	
-	
-	
 	this.ActiveEntities = new ArrayList<Entity>();
+	Entity entity = null;
+	
+/*
+	for(int i = 0; i < 10; i++) {
+		switch(i) {
+		case 0:
+			entity = new Beetle(i,"debug",game.tManager.getImage(2, 2, 0),true,game);
+		break;
+		     
+		
+		}
+		entIndex.add(entity);
+	}*/
+	}
+	
+	
+	private Entity createEntity(int id) {
+		Entity entity = null;
+		switch(id) {
+		case 0:
+			entity = new Beetle(id,"debug",game.tManager.getImage(2, 2, 0),true,game);
+		break;
+		     
+		
+		}
+		return entity;
 	}
 	
 	
@@ -26,7 +49,7 @@ private Main game;
 	Entity entity;
 
 	
-	entity = game.eIndex.getIndex(entityID);
+	entity = createEntity(entityID);
 	entity.setPos(x, y,z);
 	
 	this.ActiveEntities.add(entity);
@@ -59,9 +82,10 @@ private Main game;
 	}
 	
 	public Entity EntityAtPos(int x, int y,int z) {
-		Entity entity;
-		entity = null;
 		
 		return game.world.getTile(x, y, z).getEntity();
 	}
+	
+	
+	
 }

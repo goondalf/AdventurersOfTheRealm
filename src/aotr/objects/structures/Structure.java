@@ -13,12 +13,14 @@ private Main game;
 private int x;
 private int y;
 private int z;
-	public Structure(String name, int ID, BufferedImage texture, Boolean Solid, Main game) {
+private int isclimeable;
+	public Structure(String name, int ID, BufferedImage texture, Boolean Solid, int climeable,Main game) {
 	this.name = name;
 	this.ID = ID;
 	this.texture = texture;
 	this.collisionBool = Solid;
 	this.game = game;
+	this.isclimeable = climeable;
 	}
 
 	
@@ -82,4 +84,9 @@ private int z;
 		
 	}
 	
+	public int getClimeable() {
+	return this.isclimeable;	
+	}	
+		
 }
+

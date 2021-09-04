@@ -42,18 +42,20 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 	this.windowHeight = windowHeight;
 	this.windoWidth = windowWidth;
 	
-	world = game.getWorld();
+	world = game.world;
 	
 	if(game.player.getPlayerState() == 0) {
-		midX = game.getPlayerX();
-		midY = game.getPlayerY();
-		midTex = game.getPlayerTex();
+		midX = game.player.getX();
+		midY = game.player.getY();
+		midTex = game.player.getTex();
 	}else if(game.player.getPlayerState() == 2) {
 		midX = game.player.look.getX();
 		midY = game.player.look.getY();
 		midTex = game.player.look.getTex(); 
 	}
 	squareSide = windowHeight/frameHeight;
+	frameWidth = (windowWidth * 3/4)/squareSide;
+	
 		for(int x = 0; x < frameWidth; x++) {
 			
 			for(int y = 0; y < frameHeight; y++) {
@@ -115,8 +117,8 @@ public void render(Graphics g, int windowWidth, int windowHeight) {
 				
 				
 				
-				if(game.player.getPlayerState() == 2 && relX == game.getPlayerX() && relY == game.getPlayerY()) {
-					g.drawImage(game.getPlayerTex(), screenX, screenY, squareSide, squareSide, null);	
+				if(game.player.getPlayerState() == 2 && relX == game.player.getX() && relY == game.player.getY()) {
+					g.drawImage(game.player.getTex(), screenX, screenY, squareSide, squareSide, null);	
 					}
 			
 					

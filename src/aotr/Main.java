@@ -14,8 +14,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import aotr.objects.entities.EntityManager;
-import aotr.objects.entities.EntityIndex;
-import aotr.objects.floors.Floor;
 import aotr.objects.floors.FloorIndex;
 import aotr.objects.player.Player;
 import aotr.objects.structures.StructureIndex;
@@ -49,12 +47,11 @@ public class Main extends Canvas implements Runnable{
 	
 	private BufferedImage image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 	
-	
+	private int key;
 	
 	//index
 	public FloorIndex fIndex;
 	public StructureIndex sIndex;
-	public EntityIndex eIndex;
 	public EntityManager eManager;
 	public textureManager tManager;
 	public StructureManager sManager;
@@ -77,7 +74,7 @@ public class Main extends Canvas implements Runnable{
 	public int gamestate;
 	public int gameMenu;
 	public boolean haltRender = false;
-	private BufferedImage sheet;
+
 	
 	public boolean fullscreen;
 	
@@ -110,7 +107,6 @@ public class Main extends Canvas implements Runnable{
 	gameMenu = 0;
 	fIndex = new FloorIndex(this);
 	sIndex = new StructureIndex(this);
-	eIndex = new EntityIndex(this);
 	eManager = new EntityManager(this);
 	sManager = new StructureManager(this);
 	
@@ -123,7 +119,6 @@ public class Main extends Canvas implements Runnable{
 	player = new Player(50,50,this);
 	pauseMenu = new PauseMenu(this);
 	actionMenu = new ActionMenu(this);
-	
 	
 	this.gamestate = 0;
 	
@@ -208,121 +203,6 @@ public class Main extends Canvas implements Runnable{
 	
 	private void tick() {
 		this.requestFocus();
-		
-		
-		
-		
-		
-	
-	}
-
-	private void render() {
-		
-		
-		
-		BufferStrategy bs = this.getBufferStrategy();
-		if(bs == null) {
-			createBufferStrategy(3);
-			return;
-		}
-		
-		Graphics g = bs.getDrawGraphics();
-		
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-		
-		
-		if(gamestate == 0) {
-			mm.render(g, getWidth(), getHeight());
-		}else if(gamestate == 1) {
-		    tiles.render(g, getWidth(), getHeight());
-		    gameHud.render(g, getWidth(), getHeight(), this);
-		    if(this.gameMenu == 1) {
-				pauseMenu.Render(g, getWidth(), getHeight());
-			}else if(this.gameMenu == 2) {
-				actionMenu.Render(g, getWidth(), getHeight());
-			}
-		}else if(gamestate == 10) {
-			loadscreen.render(g, getWidth(), getHeight());
-			
-		}else if(gamestate == 2) {
-			settings.render(g,getWidth(),getHeight());
-		}else if(gamestate == 3) {
-			genMenu.render(g, getWidth(), getHeight());
-		}
-		
-		
-		
-		g.dispose();
-		bs.show();
-		
-		}
-		
-		
-	
-	
-
-	
-	
-	public static void main(String args[]) {
-
-		
-		Main game = new Main();
-		game.haltRender = true;
-		game.fullscreen = false;
-		
-		
-		game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		game.addKeyListener(new keyInput(game));
-		
-		game.buildFrame(game);
-		
-		
-		game.haltRender = false;
-		game.init();
-		
-	}
-
-	
-	
-	public void buildFrame(Main game) {
-		JFrame frame = new JFrame();
-		frame.add(game);
-		frame.setExtendedState(frame.MAXIMIZED_BOTH);
-		frame.setFocusable(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
-		frame.setLocationRelativeTo(null);
-		game.start(frame);
-		frame.pack();
-		
-		frame.setVisible(true);
-		
-		
-	}
-	
-	public void cancel() {
-	player.cancel();
-	if(this.gameMenu == 2) {
-		this.gameMenu= 0;
-	}
-	}
-	
-	public void toggleFullScreen() {
-		if(gamestate != 10) {
-		if(fullscreen == false) {
-		device.setFullScreenWindow(this.frame);
-		fullscreen = true;
-		}else {
-			device.setFullScreenWindow(null);
-			fullscreen = false;
-		}
-		}
-	}
-	
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
 		
 		if(key == KeyEvent.VK_RIGHT){
 			player.move(1, 0);
@@ -421,8 +301,123 @@ public class Main extends Canvas implements Runnable{
 			
 		}
 		
+		if(key == KeyEvent.VK_I) {
+		this.toggleHud();
+		}
 		
+		key = 0;
+		
+		
+		
+	
+	}
 
+	private void render() {
+		
+		
+		
+		BufferStrategy bs = this.getBufferStrategy();
+		if(bs == null) {
+			createBufferStrategy(3);
+			return;
+		}
+		
+		Graphics g = bs.getDrawGraphics();
+		
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		
+		
+		if(gamestate == 0) {
+			mm.render(g, getWidth(), getHeight());
+		}else if(gamestate == 1) {
+		    tiles.render(g, getWidth(), getHeight());
+		    gameHud.render(g, getWidth(), getHeight(), this);
+		    if(this.gameMenu == 1) {
+				pauseMenu.Render(g, getWidth(), getHeight());
+			}else if(this.gameMenu == 2) {
+				actionMenu.Render(g, getWidth(), getHeight());
+			}
+		}else if(gamestate == 10) {
+			loadscreen.render(g, getWidth(), getHeight());
+			
+		}else if(gamestate == 2) {
+			settings.render(g,getWidth(),getHeight());
+		}else if(gamestate == 3) {
+			genMenu.render(g, getWidth(), getHeight());
+		}
+		
+		
+		
+		g.dispose();
+		bs.show();
+		
+		}
+		
+		
+	
+	
+
+	
+	
+	public static void main(String args[]) {
+
+		
+		
+		Main game = new Main();
+		game.init();
+		game.haltRender = true;
+		game.fullscreen = false;
+		
+		
+		game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		game.addKeyListener(new keyInput(game));
+		
+		JFrame frame = new JFrame();
+		frame.add(game);
+		frame.setExtendedState(frame.MAXIMIZED_BOTH);
+		frame.setFocusable(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+		game.start(frame);
+		frame.pack();
+		
+		frame.setVisible(true);
+		
+		
+		game.haltRender = false;
+		
+		
+	}
+
+	
+	
+	
+	public void cancel() {
+	player.cancel();
+	if(this.gameMenu == 2) {
+		this.gameMenu= 0;
+	}
+	}
+	
+	public void toggleFullScreen() {
+		if(gamestate != 10) {
+		if(fullscreen == false) {
+		device.setFullScreenWindow(this.frame);
+		fullscreen = true;
+		}else {
+			device.setFullScreenWindow(null);
+			fullscreen = false;
+		}
+		}
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		 key = e.getKeyCode();
+		
+	
 	}
 	
 	public void exit() {
@@ -430,7 +425,7 @@ public class Main extends Canvas implements Runnable{
 	}
 	
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
@@ -441,36 +436,21 @@ public class Main extends Canvas implements Runnable{
 		
 	}
 	
-	public BufferedImage getSheet() {
-		return this.sheet;
-		
-	}
-	
-	public Floor getFloor(int i) {
-		return fIndex.getIndex(i);
-	}
-	
-	public world getWorld() {
-		return this.world;
-	}
-	
+
+
+
 	public void generateWorld() {
 		gamestate = 10;
 		world = new world(this,worldWidth, worldHeight,worldDepth);
 		this.world.generateWorld();
 	}
-	
-	public BufferedImage getPlayerTex() {
-		return player.getTex();
-		
+
+	public void toggleHud() {
+		if(gamestate == 1) {
+			this.gameHud.hudVisibility = !this.gameHud.hudVisibility;
+		}
 	}
 	
-	public int getPlayerX() {
-		return player.getX();	
-	}
-	public int getPlayerY() {
-		return player.getY();	
-	}
 	
 	public int getWorldWidth() {
 		

@@ -17,16 +17,19 @@ public class HUD {
 	int hudwidth;
 	int hudheight;
 	
-	
+   public boolean hudVisibility;
+
 	
 	
 Main game;	
 	public HUD(Main game) {
 		this.game = game;
+		this.hudVisibility = true;
 	}
 
 	
 	public void render(Graphics g, int windowWidth, int windowHeight, Main game) {
+		if(this.hudVisibility == true) {
 		this.game = game;
 		topLcornerx = game.tiles.getWidth() + windowHeight/120;
 		topLcornery = windowHeight/120;
@@ -42,7 +45,7 @@ Main game;
 		g.setFont(new Font("SansSerif", Font.PLAIN, windowHeight / 40 ));
 		g.drawString("health:" + game.player.stats.getHealth(), topLcornerx+ topLcornery, hudheight/20);
 		
-		
+		}
 		
 	}
 	

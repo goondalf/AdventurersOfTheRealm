@@ -49,7 +49,7 @@ public Stats stats;
 		int finalY = changeY + this.y;
 		if (game.getGameState() == 1 && playerState == 0 && game.gameMenu == 0 && this.playerState == 0) {
 		
-		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
+		if(((this.x + changeX) > -1) && ((this.x + changeX) < this.game.world.getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.world.getHeight())) {
 			
 			if(game.world.getTile(finalX, finalY, this.z).isSolid() == false){
 		this.y = changeY + this.y;
@@ -63,7 +63,7 @@ public Stats stats;
 	}
 		
 		
-		if(this.playerState == 1 && ((this.x + changeX) > -1) && ((this.x + changeX) < this.game.getWorld().getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.getWorld().getHeight())) {
+		if(this.playerState == 1 && ((this.x + changeX) > -1) && ((this.x + changeX) < this.game.world.getWidth()) && ((this.y + changeY) > -1) && ((this.y + changeY) < this.game.world.getHeight())) {
 			interact(changeX,changeY);
 		}
 	}
@@ -77,13 +77,28 @@ public Stats stats;
 			game.world.getStructure(this.x+x, this.y+y,this.z).interact();
 			this.playerState = 0;
 	}
+	
 		
 	this.playerState = 0;	
+	}
+	
+	
+	public void climb() {
+		if(game.world.getStructure(this.x, this.y,this.z) != null) {
+			if(game.world.getStructure(this.x+x, this.y+y,this.z).getClimeable() == 1) {
+			this.z++;
+			}else if(game.world.getStructure(this.x+x, this.y+y,this.z).getClimeable() == 2) {
+				this.z--;
+			}
+		}
+		
 	}
 	
 	public void changeZ(int num) {
 		z += num;
 	}
+	
+	
 	
 	
 	
